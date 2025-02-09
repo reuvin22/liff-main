@@ -5,27 +5,25 @@ import "slick-carousel/slick/slick-theme.css";
 import "./Carousel.css";
 import CarouselQuestion from "./CarouselQuestion";
 import CarouselOperation from "./CarouselOperation";
-import ImageA from "./questions/quesa.jpg";
-import ImageB from "./questions/quesb.jpg";
-import ImageC from "./questions/quesc.jpg";
-import ImageD from "./questions/quescc.jpg";
-import ImageE from "./questions/quesd.jpg";
-import ImageF from "./questions/quesdd.jpg";
-import ImageG from "./questions/quese.jpg";
-import ImageH from "./questions/quesee.jpg";
-import ImageI from "./questions/quesf.jpg";
-import ImageJ from "./questions/quesff.jpg";
-import ImageK from "./questions/quesg.jpg";
-import ImageL from "./questions/quesgg.jpg";
-import ImageM from "./questions/quesh.jpg";
-import ImageN from "./questions/queshh.jpg";
-import ImageO from "./questions/quesi.jpg";
-import ImageP from "./questions/quesj.jpg";
-import ImageQ from "./questions/quesk.jpg";
-import ImageR from "./questions/queskk.jpg";
-import ImageS from "./questions/quesl.jpg";
-import ImageT from "./questions/quesm.jpg";
-import ImageU from "./questions/quesn.jpg";
+import ImageA from "./questions/1.png";
+import ImageB from "./questions/2.png";
+import ImageC from "./questions/3.png";
+import ImageD from "./questions/4.png";
+import ImageE from "./questions/5.png";
+import ImageF from "./questions/6.png";
+import ImageG from "./questions/7.png";
+import ImageH from "./questions/8.png";
+import ImageI from "./questions/9.png";
+import ImageJ from "./questions/10.png";
+import ImageK from "./questions/11.png";
+import ImageL from "./questions/12.png";
+import ImageM from "./questions/13.png";
+import ImageN from "./questions/14.png";
+import ImageO from "./questions/15.png";
+import ImageP from "./questions/16.png";
+import ImageQ from "./questions/17.png";
+import ImageR from "./questions/18.png";
+import ImageS from "./questions/19.png";
 
 import OperationalA from "./operational/1.png";
 import OperationalB from "./operational/2.png";
@@ -40,9 +38,6 @@ import OperationalJ from "./operational/10.png";
 import OperationalK from "./operational/11.png";
 import OperationalL from "./operational/12.png";
 import OperationalM from "./operational/13.png";
-import OperationalN from "./operational/14.png";
-import OperationalO from "./operational/15.png";
-import OperationalP from "./operational/16.png";
 
 const slides = [
   { text: "質問1：強み", image: ImageA, alt: "Slide 1" },
@@ -63,8 +58,7 @@ const slides = [
   { text: "質問10：志望企業情報", image: ImageP, alt: "Slide 16" },
   { text: "質問11：志望企業情報", image: ImageQ, alt: "Slide 17" },
   { text: "質問11：補足", image: ImageR, alt: "Slide 18" },
-  { text: "質問12：志望企業情報", image: ImageS, alt: "Slide 19" },
-  { text: "質問13：志望動機", image: ImageT, alt: "Slide 20" },
+  { text: "質問12：志望企業情報", image: ImageS, alt: "Slide 19" }
 ];
 
 const slide = [
@@ -104,23 +98,47 @@ const slide = [
     image: OperationalH,
     alt: "Slide 8",
   },
-
+  {
+    text: "友達に紹介",
+    image: OperationalI,
+    alt: "Slide 8",
+  },
+  {
+    text: "友達に紹介",
+    image: OperationalJ,
+    alt: "Slide 9",
+  },
+  {
+    text: "友達に紹介",
+    image: OperationalK,
+    alt: "Slide 10",
+  },
+  {
+    text: "友達に紹介",
+    image: OperationalL,
+    alt: "Slide 11",
+  },
+  {
+    text: "友達に紹介",
+    image: OperationalM,
+    alt: "Slide 12",
+  },
 ];
 
 function Carousel() {
   return (
     <div className="App">
       <h2 style={{ fontSize: '2em' }}>【操作マニュアル】</h2>
-      <p>AIと一緒に良いESを作成しましょう！</p>
+      <p className="font-bold">AIと一緒に良いESを作成しましょう！</p>
       
-      <div className="questions">
-        <h4>1. 質問一覧</h4>
+      <div className="questions text-center">
+        <h4 className="font-bold">1. 質問一覧</h4>
         <p>強み・経験をAIが質問してくれるのでこちらに一つずつ回答しましょう</p>
         <CarouselQuestion slides={slides} />
       </div>
 
-      <div className="operational">
-        <h4>2. 使い方</h4>
+      <div className="operational text-center">
+        <h4 className="font-bold">2. 使い方</h4>
         <p>実際の使い方はこちらから</p>
         <CarouselOperation slide={slide} />
       </div>
