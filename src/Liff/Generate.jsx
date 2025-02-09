@@ -30,7 +30,7 @@ function Generate({prompt, userId}) {
         context.setIsLoading(true);
 
         try{
-            const response = await axios.get(`https://reuvindevs.com/liff/public/api/generate/${userId}`);
+            const response = await axios.get(`https://reuvindevs.com/liff/public/api/compress/${userId}`);
             setCompressData(response.data);
             const errorMessages = [
                 "申し訳ありませんが、その要件を満たすことはできません。",
