@@ -33,7 +33,7 @@ const Home = () => {
       : 200;
     const [formData, setFormData] = useState({
         userId: null,
-        displayName: 'Reuvin',
+        displayName: '',
         Question_1: '',
         Ability_Desc_1: '',
         Question_2: '',
