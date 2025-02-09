@@ -43,14 +43,14 @@ function Option({ prompt, userId }) {
     <div className="min-h-screen bg-blue-100 flex justify-center items-center">
       <div className="bg-white w-80 rounded-lg shadow-lg p-4 text-center">
         <div className="border-2 border-black mt-1 bg-gray-300 mb-2">
-          出力先を選択してください
+          出力さきを選択してください
         </div>
         <div className="flex space-x-2">
           <button 
             onClick={handleGenerate} 
             className="bg-green-400 py-2 text-white px-4 border flex-1 text-sm"
           >
-            画面に表示
+            こちらでみる
           </button>
           <button 
             onClick={handleDownloadRedirect} 

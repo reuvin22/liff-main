@@ -8,7 +8,17 @@ export const AdsContext = createContext({
     isReady: false,
     setIsReady: () => {},
     isCompressReady: false,
-    setIsCompressReady: () => {}
+    setIsCompressReady: () => {},
+    setAdsPlaying: () => {},
+    adsPlaying: false,
+    isClicked: '',
+    setIsClicked: () => {},
+    countdown: null,
+    setCountdown: () => {},
+    generateIsReady: false,
+    setGenerateIsReady: () => {},
+    compressIsReady: false,
+    setCompressIsReady: () => {}
 });
 
 export const GenerateContext = createContext({

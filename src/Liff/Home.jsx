@@ -214,10 +214,8 @@ const Home = () => {
     useEffect(() => {
       const loadLIFF = async () => {
         try {
-          console.log("Attempting to load LIFF SDK...");
           await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js')
             .then(() => {
-              console.log("LIFF SDK loaded successfully");
               const liff = window.liff;
   
               if (liff) {
@@ -228,7 +226,6 @@ const Home = () => {
                   if (liff.isLoggedIn()) {
                     liff.getProfile()
                       .then((profile) => {
-                        console.log("User Profile:", profile);
   
                         setUserId(profile.userId);
                         setFormData(prevData => ({
@@ -242,7 +239,7 @@ const Home = () => {
                         alert("Error fetching user profile. Please try again.");
                       });
                   } else {
-                    alert("User is not logged in. User ID not detected.");
+                    alert("ユーザーがログインしていません。ユーザー ID が検出されません。");
                     liff.login();
                   }
                 })
@@ -278,7 +275,6 @@ const Home = () => {
     }, [userId]);
   
     const handleSubmit = async () => {
-      console.log(formData);
       context.setIsLoading(true);
   
       try {
@@ -310,7 +306,6 @@ const Home = () => {
       }
   };
     
-    console.log('THIS IS IS READY: ', context.isReady)
     if(context.isReady === true){
       return <Option 
         prompt={prompt}
@@ -350,8 +345,6 @@ const Home = () => {
             ...prevData,
             [questionKey]: inputValue,
           };
-      
-          console.log('Updated formData:', updatedData);
           return updatedData;
         });
       };
@@ -392,7 +385,6 @@ const Home = () => {
       setShowAdvice(false)
     };
 
-    console.log('FORMDATA: ', formData)
     return (
       <div className="min-h-screen bg-blue-100 flex justify-center items-center relative">
         {questionList.length === 0 ? (

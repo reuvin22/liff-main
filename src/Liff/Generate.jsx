@@ -8,6 +8,7 @@ import { useAdsContext, useGenerateContext } from '../utils/context';
 function Generate({prompt, userId}) {
     const [copyStatus, setCopyStatus] = useState("");
     const [generate, setGenerate] = useState("");
+    const [generatePage, setIsGeneratePage] = useState(false);
     const [isCompress, setIsCompress] = useState(false);
     const [main, setMain] = useState(true);
     const [error, setError] = useState(false);
@@ -17,7 +18,8 @@ function Generate({prompt, userId}) {
     const [copy, setCopy] = useState(false)
     const context = useAdsContext()
     const generateContext = useGenerateContext()
-
+    const [shouldRenderCompress, setShouldRenderCompress] = useState(false)
+    const [stopLoading, setStopLoading] = useState(false)
     useEffect(() => {
         if(!prompt){
             handleGenerate()
@@ -27,8 +29,9 @@ function Generate({prompt, userId}) {
     }, [])
     
     const handleCompress = async() => {
+        context.setIsClicked('Compress')
         context.setIsLoading(true);
-
+        setGenerate("")
         try{
             const response = await axios.get(`https://reuvindevs.com/liff/public/api/compress/${userId}`);
             setCompressData(response.data);
@@ -46,11 +49,12 @@ function Generate({prompt, userId}) {
             setIsLoading(false);
             return <LoadingError userId={userId} />;
         } finally {
-            context.setIsLoading(false)
-            setIsCompress(true)
+            context.setIsClicked('Compress')
         }
-    };    
+    };
+
     const handleGenerate = async () => {
+        context.setIsClicked('Generate')
         context.setIsLoading(true);
         
         try {
@@ -72,24 +76,28 @@ function Generate({prompt, userId}) {
                 setError(true);
                 <LoadingError />
             }
+
         } catch (error) {
             console.error("Error fetching generated response:", error);
             <LoadingError />
-        } finally {
-            context.setIsLoading(false);
         }
     };    
-    
-    console.log(compressData)
-    if(isCompress){
-        return <Compress 
-            prompt={compressData}
-            userId = {userId}
-        />
+
+    useEffect(() => {
+        if (context.generateIsReady === true && context.countdown === 0 && context.isClicked === 'Generate') {
+            context.setIsLoading(false)
+        } else if(context.compressIsReady && context.countdown === 0 && context.isClicked === 'Compress'){
+            setShouldRenderCompress(true);
+            context.setIsLoading(false);
+        }
+    }, [context.generateIsReady, context.countdown, context.compressIsReady ]);
+
+    if (shouldRenderCompress) {
+        return <Compress prompt={compressData} userId={userId} />;
     }
 
     if(context.isLoading){
-        return <Loading generate={generate}/>;
+        return <Loading generate={generate ? generate : ""} userId={userId} prompt={compressData ? compressData : ""}/>;
     }
 
   const handleCopy = () => {
@@ -97,7 +105,7 @@ function Generate({prompt, userId}) {
     const textToCopy = generate ? generate : prompt;
     navigator.clipboard.writeText(textToCopy)
       .then(() => {
-        setCopyStatus("クリップボードにコピーしました！");
+        setCopyStatus("コピーしました！");
         setTimeout(() => setCopyStatus(""), 2000);
       }).catch(() => {
         setCopyStatus("コピーに失敗しました")
@@ -136,14 +144,14 @@ function Generate({prompt, userId}) {
                     {copy && (
                         <div className='w-full bg-red-200 h-10 justify-center text-center leading-[2.5rem] z-50'>{copyStatus}</div>
                     )}
-                    <p className='text-sm px-2 text-justify whitespace-pre-line'>{generate ? generate : prompt}</p>
+                    <p className='text-sm px-2 text-justify whitespace-pre-line'>{generate ? formatJapaneseText(generate) : formatJapaneseText(prompt)}</p>
                 </div>
                 <div className="flex space-x-2">
                 <button onClick={handleCompress} className="bg-orange-400 text-white px-4 border flex-1 text-sm">
-                    400字に圧縮する
+                    400文字に圧縮
                 </button>
                 <button onClick={handleGenerate} className="bg-green-400 text-white px-4 border flex-1 text-sm">
-                    再度生成する
+                    再生成
                 </button>
                 <button onClick={handleCopy} className="bg-yellow-400 text-white px-4 border flex-1 text-sm">
                     クリップボードにコピー
@@ -151,7 +159,7 @@ function Generate({prompt, userId}) {
                 </div>
                 <div onClick={backToHome} className='border-1 border-black mt-1 bg-gray-300'>
                     <button className='py-2'>
-                        ホームに戻る
+                    ホーム
                     </button>
                 </div>
             </div>
