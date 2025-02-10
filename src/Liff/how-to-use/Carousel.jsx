@@ -14,16 +14,16 @@ import ImageF from "./questions/6.png";
 import ImageG from "./questions/7.png";
 import ImageH from "./questions/8.png";
 import ImageI from "./questions/9.png";
-import ImageJ from "./questions/10.png";
-import ImageK from "./questions/11.png";
-import ImageL from "./questions/12.png";
-import ImageM from "./questions/13.png";
-import ImageN from "./questions/14.png";
-import ImageO from "./questions/15.png";
-import ImageP from "./questions/16.png";
-import ImageQ from "./questions/17.png";
-import ImageR from "./questions/18.png";
-import ImageS from "./questions/19.png";
+// import ImageJ from "./questions/10.png";
+// import ImageK from "./questions/11.png";
+// import ImageL from "./questions/12.png";
+// import ImageM from "./questions/13.png";
+// import ImageN from "./questions/14.png";
+// import ImageO from "./questions/15.png";
+// import ImageP from "./questions/16.png";
+// import ImageQ from "./questions/17.png";
+// import ImageR from "./questions/18.png";
+// import ImageS from "./questions/19.png";
 
 import OperationalA from "./operational/1.png";
 import OperationalB from "./operational/2.png";
@@ -35,9 +35,9 @@ import OperationalG from "./operational/7.png";
 import OperationalH from "./operational/8.png";
 import OperationalI from "./operational/9.png";
 import OperationalJ from "./operational/10.png";
-import OperationalK from "./operational/11.png";
-import OperationalL from "./operational/12.png";
-import OperationalM from "./operational/13.png";
+// import OperationalK from "./operational/11.png";
+// import OperationalL from "./operational/12.png";
+// import OperationalM from "./operational/13.png";
 
 const slides = [
   { text: "質問1：強み", image: ImageA, alt: "Slide 1" },
@@ -49,16 +49,16 @@ const slides = [
   { text: "質問5：あなたのの役割", image: ImageG, alt: "Slide 7" },
   { text: "質問5：補足", image: ImageH, alt: "Slide 8" },
   { text: "質問6：あなたの課題", image: ImageI, alt: "Slide 9" },
-  { text: "質問6：補足", image: ImageJ, alt: "Slide 10" },
-  { text: "質問7：課題への取り組み", image: ImageK, alt: "Slide 11" },
-  { text: "質問7：補足", image: ImageL, alt: "Slide 12" },
-  { text: "質問8：取り組みの結果", image: ImageM, alt: "Slide 13" },
-  { text: "質問8：補足", image: ImageN, alt: "Slide 14" },
-  { text: "質問9：志望企業名", image: ImageO, alt: "Slide 15" },
-  { text: "質問10：志望企業情報", image: ImageP, alt: "Slide 16" },
-  { text: "質問11：志望企業情報", image: ImageQ, alt: "Slide 17" },
-  { text: "質問11：補足", image: ImageR, alt: "Slide 18" },
-  { text: "質問12：志望企業情報", image: ImageS, alt: "Slide 19" }
+  // { text: "質問6：補足", image: ImageJ, alt: "Slide 10" },
+  // { text: "質問7：課題への取り組み", image: ImageK, alt: "Slide 11" },
+  // { text: "質問7：補足", image: ImageL, alt: "Slide 12" },
+  // { text: "質問8：取り組みの結果", image: ImageM, alt: "Slide 13" },
+  // { text: "質問8：補足", image: ImageN, alt: "Slide 14" },
+  // { text: "質問9：志望企業名", image: ImageO, alt: "Slide 15" },
+  // { text: "質問10：志望企業情報", image: ImageP, alt: "Slide 16" },
+  // { text: "質問11：志望企業情報", image: ImageQ, alt: "Slide 17" },
+  // { text: "質問11：補足", image: ImageR, alt: "Slide 18" },
+  // { text: "質問12：志望企業情報", image: ImageS, alt: "Slide 19" }
 ];
 
 const slide = [
@@ -108,21 +108,21 @@ const slide = [
     image: OperationalJ,
     alt: "Slide 9",
   },
-  {
-    text: "友達に紹介",
-    image: OperationalK,
-    alt: "Slide 10",
-  },
-  {
-    text: "友達に紹介",
-    image: OperationalL,
-    alt: "Slide 11",
-  },
-  {
-    text: "友達に紹介",
-    image: OperationalM,
-    alt: "Slide 12",
-  },
+  // {
+  //   text: "友達に紹介",
+  //   image: OperationalK,
+  //   alt: "Slide 10",
+  // },
+  // {
+  //   text: "友達に紹介",
+  //   image: OperationalL,
+  //   alt: "Slide 11",
+  // },
+  // {
+  //   text: "友達に紹介",
+  //   image: OperationalM,
+  //   alt: "Slide 12",
+  // },
 ];
 
 function Carousel() {
@@ -133,7 +133,7 @@ function Carousel() {
       
       <div className="questions text-center">
         <h4 className="font-bold">1. 質問一覧</h4>
-        <p>強み・経験をAIが質問してくれるのでこちらに一つずつ回答しましょう</p>
+        {/* <p>強み・経験をAIが質問してくれるのでこちらに一つずつ回答しましょう</p> */}
         <CarouselQuestion slides={slides} />
       </div>
 
