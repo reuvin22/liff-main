@@ -40,6 +40,7 @@ import OperationalL from "./operational/12.png";
 import OperationalM from "./operational/13.png";
 import HomeLoading from "../HomeLoading";
 import { useNavigate } from "react-router-dom";
+import Home from "../Home";
 
 const slides = [
   { text: "質問1：強み", image: ImageA, alt: "Slide 1" },
@@ -131,7 +132,7 @@ function Carousel() {
   const navigate = useNavigate()
 
   const navigateToForm = () => {
-    navigate('/form')
+    return <Home />
   }
   return (
     <div className="App">
