@@ -39,8 +39,7 @@ import OperationalK from "./operational/11.png";
 import OperationalL from "./operational/12.png";
 import OperationalM from "./operational/13.png";
 import HomeLoading from "../HomeLoading";
-import { useNavigate } from "react-router-dom";
-import Home from "../Home";
+import { Link, useNavigate } from "react-router-dom";
 
 const slides = [
   { text: "質問1：強み", image: ImageA, alt: "Slide 1" },
@@ -129,11 +128,6 @@ const slide = [
 ];
 
 function Carousel() {
-  const navigate = useNavigate()
-
-  const navigateToForm = () => {
-    return <Home />
-  }
   return (
     <div className="App">
       {(!slides || !slide) ? (
@@ -154,10 +148,12 @@ function Carousel() {
             <p>実際の使い方はこちらから</p>
             <CarouselOperation slide={slide} />
           </div>
-
-          <button className="bg-green-500 py-3 px-10 rounded-lg mb-5 text-white font-bold cursor-pointer" onClick={navigateToForm}>
+          <Link
+            to="/form"
+            className="bg-green-500 py-3 px-10 rounded-lg mb-5 text-white font-bold cursor-pointer flex justify-center items-center"
+          >
             Go to Form
-          </button>
+          </Link>
         </>
       )}
     </div>
