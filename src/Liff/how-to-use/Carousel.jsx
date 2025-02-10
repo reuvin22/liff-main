@@ -38,6 +38,8 @@ import OperationalJ from "./operational/10.png";
 import OperationalK from "./operational/11.png";
 import OperationalL from "./operational/12.png";
 import OperationalM from "./operational/13.png";
+import HomeLoading from "../HomeLoading";
+import { useNavigate } from "react-router-dom";
 
 const slides = [
   { text: "質問1：強み", image: ImageA, alt: "Slide 1" },
@@ -126,22 +128,37 @@ const slide = [
 ];
 
 function Carousel() {
+  const navigate = useNavigate()
+
+  const navigateToForm = () => {
+    navigate('/form')
+  }
   return (
     <div className="App">
-      <h2 style={{ fontSize: '2em' }}>【操作マニュアル】</h2>
-      <p className="font-bold">AIと一緒に良いESを作成しましょう！</p>
-      
-      <div className="questions text-center">
-        <h4 className="font-bold">1. 質問一覧</h4>
-        <p>強み・経験をAIが質問してくれるのでこちらに一つずつ回答しましょう</p>
-        <CarouselQuestion slides={slides} />
-      </div>
+      {(!slides || !slide) ? (
+        <HomeLoading />
+      ) : (
+        <>
+          <h2 style={{ fontSize: '2em' }}>【操作マニュアル】</h2>
+          <p className="font-bold">AIと一緒に良いESを作成しましょう！</p>
 
-      <div className="operational text-center">
-        <h4 className="font-bold">2. 使い方</h4>
-        <p>実際の使い方はこちらから</p>
-        <CarouselOperation slide={slide} />
-      </div>
+          <div className="questions text-center">
+            <h4 className="font-bold">1. 質問一覧</h4>
+            <p>強み・経験をAIが質問してくれるのでこちらに一つずつ回答しましょう</p>
+            <CarouselQuestion slides={slides} />
+          </div>
+
+          <div className="operational text-center">
+            <h4 className="font-bold">2. 使い方</h4>
+            <p>実際の使い方はこちらから</p>
+            <CarouselOperation slide={slide} />
+          </div>
+
+          <button className="bg-green-500 py-3 px-10 rounded-lg mb-5 text-white font-bold cursor-pointer" onClick={navigateToForm}>
+            Go to Form
+          </button>
+        </>
+      )}
     </div>
   );
 }
