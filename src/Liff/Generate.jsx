@@ -93,6 +93,7 @@ function Generate({prompt, userId}) {
     }, [context.generateIsReady, context.countdown, context.compressIsReady ]);
 
     if (shouldRenderCompress) {
+        console.log(compressData)
         return <Compress prompt={compressData} userId={userId} />;
     }
 

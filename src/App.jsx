@@ -13,14 +13,12 @@ function App() {
   const [countInterval, setCountInterval] = useState(null)
   const [generateIsReady, setGenerateIsReady] = useState(false)
   const [compressIsReady, setCompressIsReady] = useState(false)
-  const [userId, setUserId] = useState(null)
-  const [displayName, setDisplayName] = useState('')
   return (
     <>
-      <AdsContext.Provider value={{ isDone, setIsDone, isLoading, setIsLoading, isReady, setIsReady, adsPlaying, setAdsPlaying, isClicked, setIsClicked, countdown, setCountdown, countInterval, setCountInterval, generateIsReady, setGenerateIsReady, compressIsReady, setCompressIsReady, userId, setUserId, displayName, setDisplayName }}>
+      <AdsContext.Provider value={{ isDone, setIsDone, isLoading, setIsLoading, isReady, setIsReady, adsPlaying, setAdsPlaying, isClicked, setIsClicked, countdown, setCountdown, countInterval, setCountInterval, generateIsReady, setGenerateIsReady, compressIsReady, setCompressIsReady }}>
         <Routes>
-            <Route path="/" element={<Carousel />} />
-            <Route path='/form'element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path='/explanation' element={<Carousel />} />
         </Routes>
       </AdsContext.Provider>
     </>

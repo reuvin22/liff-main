@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import liff from "@line/liff";
+import React from "react";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Carousel.css";
@@ -38,9 +38,6 @@ import OperationalJ from "./operational/10.png";
 import OperationalK from "./operational/11.png";
 import OperationalL from "./operational/12.png";
 import OperationalM from "./operational/13.png";
-import HomeLoading from "../HomeLoading";
-import { Link, useNavigate } from "react-router-dom";
-import { useAdsContext } from "../../utils/context";
 
 const slides = [
   { text: "質問1：強み", image: ImageA, alt: "Slide 1" },
@@ -129,85 +126,22 @@ const slide = [
 ];
 
 function Carousel() {
-  const context = useAdsContext()
-  useEffect(() => {
-        const loadLIFF = async () => {
-          try {
-            await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js')
-              .then(() => {
-                const liff = window.liff;
-    
-                if (liff) {
-                  liff.init({
-                    liffId: "2006819941-jWGNQ53X",
-                  })
-                  .then(() => {
-                    if (liff.isLoggedIn()) {
-                      liff.getProfile()
-                        .then((profile) => {
-    
-                          context.setUserId(profile.userId);
-                          context.setDisplayName(profile.displayName)
-                        })
-                        .catch((err) => {
-                          console.error("Error fetching user profile:", err);
-                          alert("Error fetching user profile. Please try again.");
-                        });
-                    } else {
-                      alert("ユーザーがログインしていません。ユーザー ID が検出されません。");
-                      liff.login();
-                    }
-                  })
-                  .catch((err) => {
-                    console.error("Error initializing LIFF:", err);
-                    alert("Error initializing LIFF SDK. Please try again later.");
-                  });
-                } else {
-                  console.error("LIFF SDK not found on window object.");
-                  alert("LIFF SDK not loaded properly.");
-                }
-              })
-              .catch((error) => {
-                console.error("Error loading LIFF SDK:", error);
-                alert("Failed to load LIFF SDK. Please try again later.");
-              });
-          } catch (error) {
-            console.error("Unexpected error:", error);
-            alert("An unexpected error occurred. Please try again.");
-          }
-        };
-    
-        loadLIFF();
-      }, []);
-    
   return (
     <div className="App">
-      {(!slides || !slide) ? (
-        <HomeLoading />
-      ) : (
-        <>
-          <h2 style={{ fontSize: '2em' }}>【操作マニュアル】</h2>
-          <p className="font-bold">AIと一緒に良いESを作成しましょう！</p>
+      <h2 style={{ fontSize: '2em' }}>【操作マニュアル】</h2>
+      <p className="font-bold">AIと一緒に良いESを作成しましょう！</p>
+      
+      <div className="questions text-center">
+        <h4 className="font-bold">1. 質問一覧</h4>
+        <p>強み・経験をAIが質問してくれるのでこちらに一つずつ回答しましょう</p>
+        <CarouselQuestion slides={slides} />
+      </div>
 
-          <div className="questions text-center">
-            <h4 className="font-bold">1. 質問一覧</h4>
-            <p>強み・経験をAIが質問してくれるのでこちらに一つずつ回答しましょう</p>
-            <CarouselQuestion slides={slides} />
-          </div>
-
-          <div className="operational text-center">
-            <h4 className="font-bold">2. 使い方</h4>
-            <p>実際の使い方はこちらから</p>
-            <CarouselOperation slide={slide} />
-          </div>
-          <Link
-            to="/form"
-            className="bg-green-500 py-3 px-10 rounded-lg mb-5 text-white font-bold cursor-pointer flex justify-center items-center"
-          >
-            Go to Form
-          </Link>
-        </>
-      )}
+      <div className="operational text-center">
+        <h4 className="font-bold">2. 使い方</h4>
+        <p>実際の使い方はこちらから</p>
+        <CarouselOperation slide={slide} />
+      </div>
     </div>
   );
 }
