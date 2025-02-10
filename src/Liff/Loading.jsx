@@ -22,7 +22,7 @@ const Loading = ({ generate, prompt }) => {
                     if (prev <= 1) {
                         clearInterval(newInterval);
     
-                        if (generate) {
+                        if (generate || prompt) {
                             context.setIsReady(true);
                         }
     
