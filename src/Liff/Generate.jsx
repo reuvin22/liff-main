@@ -98,7 +98,7 @@ function Generate({prompt, userId}) {
     }
 
     if(context.isLoading){
-        return <Loading generate={generate ? generate : ""} userId={userId} prompt={compressData ? compressData : ""}/>;
+        return <Loading generate={generate} userId={userId} prompt={compressData}/>;
     }
 
   const handleCopy = () => {
