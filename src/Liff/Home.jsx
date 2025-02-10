@@ -11,7 +11,7 @@ import { useAdsContext } from "../utils/context";
 const Home = () => {
     const [progress, setProgress] = useState(1);
     const [currentStep, setCurrentStep] = useState(1);
-    const [totalSteps] = useState(13);
+    const [totalSteps] = useState(11);
     const [isGenerate, setIsGenerate] = useState(false)
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [showAdditionalDiv, setShowAdditionalDiv] = useState(false);
@@ -46,9 +46,7 @@ const Home = () => {
         Question_8: '',
         Question_9: '',
         Question_10: '',
-        Question_11: '',
-        Question_12: '',
-        Question_13: '',
+        Question_11: ''
     });
     const [userId, setUserId] = useState(null);
 
@@ -357,7 +355,7 @@ const Home = () => {
             return;
         }
 
-        if(progress === 13){
+        if(progress === 11){
             handleSubmit()
             return;
         }
@@ -563,22 +561,6 @@ const Home = () => {
                 </div>
             </div>
             )}
-           {(progress === 12 || progress === 13) && (
-              <div className="relative bg-white p-4 max-w-sm mx-auto">
-                  <div className="-mt-6">
-                      <textarea
-                          type="text"
-                          maxLength={maxInput}
-                          value={formData[`Question_${currentStep}`] || ""}
-                          onChange={handleInputLimit}
-                          className="w-full px-2 py-1 border-black border-2"
-                          placeholder="..."
-                          rows={6}
-                          name={`Question_${questions[currentStep]}`}
-                      />
-                  </div>
-              </div>
-          )}
           <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
             <img
               src={ArrowB}
