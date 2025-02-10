@@ -100,3 +100,75 @@ body {
     z-index: 9;
   }
 }
+
+.manual-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.manual-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.manual-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.section {
+  margin-bottom: 3rem;
+  text-align: left;
+}
+
+.section-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #2c5282;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #4299e1;
+}
+
+.section-description {
+  font-size: 1rem;
+  color: #4a5568;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.carousel-container {
+  background: #f7fafc;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* スライダーのナビゲーションボタンのスタイル */
+.slick-prev, .slick-next {
+  width: 40px;
+  height: 40px;
+  background: #4299e1;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.slick-prev:hover, .slick-next:hover {
+  background: #2b6cb0;
+}
+
+/* ドットナビゲーションのスタイル */
+.slick-dots li button:before {
+  font-size: 12px;
+  color: #4299e1;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #2b6cb0;
+}
