@@ -32,8 +32,8 @@ const Home = () => {
       ? 600
       : 200;
     const [formData, setFormData] = useState({
-        userId: null,
-        displayName: '',
+        userId: 12321321,
+        displayName: 'QWEQWEWQ',
         Question_1: '',
         Ability_Desc_1: '',
         Question_2: '',
@@ -238,7 +238,7 @@ const Home = () => {
                       });
                   } else {
                     alert("ユーザーがログインしていません。ユーザー ID が検出されません。");
-                    liff.login();
+                    // liff.login();
                   }
                 })
                 .catch((err) => {

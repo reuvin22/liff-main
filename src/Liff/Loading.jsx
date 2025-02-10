@@ -24,9 +24,9 @@ const Loading = ({ generate, prompt }) => {
     
                         if (generate) {
                             context.setIsReady(true);
-                            console.log(generate)
                         }
     
+                        setGenerated(!generated)
                         context.setAdsPlaying(false);
                         return 0;
                     }
