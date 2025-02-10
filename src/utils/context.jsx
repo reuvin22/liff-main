@@ -18,7 +18,11 @@ export const AdsContext = createContext({
     generateIsReady: false,
     setGenerateIsReady: () => {},
     compressIsReady: false,
-    setCompressIsReady: () => {}
+    setCompressIsReady: () => {},
+    userId: null,
+    setUserId: () => {},
+    displayName: '',
+    setDisplayName: () => {}
 });
 
 export const GenerateContext = createContext({
