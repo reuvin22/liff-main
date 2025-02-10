@@ -11,7 +11,7 @@ import { useAdsContext } from "../utils/context";
 const Home = () => {
     const [progress, setProgress] = useState(1);
     const [currentStep, setCurrentStep] = useState(1);
-    const [totalSteps] = useState(13);
+    const [totalSteps] = useState(11);
     const [isGenerate, setIsGenerate] = useState(false)
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [showAdditionalDiv, setShowAdditionalDiv] = useState(false);
@@ -47,8 +47,6 @@ const Home = () => {
         Question_9: '',
         Question_10: '',
         Question_11: '',
-        Question_12: '',
-        Question_13: '',
     });
     const [userId, setUserId] = useState(null);
 
@@ -357,7 +355,7 @@ const Home = () => {
             return;
         }
 
-        if(progress === 13){
+        if(progress === 11){
             handleSubmit()
             return;
         }
