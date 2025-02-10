@@ -48,7 +48,7 @@
 .slick-prev {
   position: absolute;
   top: 50%;
-  transform: translateX(-20%);
+  transform: translateX(20%);
   border-radius: 50%;
 }
 
@@ -83,19 +83,20 @@ body {
   .container {
     display: flex;
     justify-content: center;
+    border: 2px solid black;
   }
 
   .slick-next {
     position: absolute;
     top: 50%;
-    transform: translateX(-170%);
+    transform: translateX(-30%);
     border-radius: 50%;
   }
 
   .slick-prev {
     position: absolute;
     top: 50%;
-    transform: translateX(150%);
+    transform: translateX(30%);
     border-radius: 50%;
     z-index: 9;
   }
