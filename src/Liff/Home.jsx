@@ -8,6 +8,7 @@ import Generate from "./Generate";
 import Option from "./Option";
 import HomeLoading from "./HomeLoading";
 import { useAdsContext } from "../utils/context";
+import { useNavigate } from "react-router-dom";
 const Home = () => {
     const [progress, setProgress] = useState(1);
     const [currentStep, setCurrentStep] = useState(1);
@@ -23,6 +24,7 @@ const Home = () => {
     const [questionList, setQuestionList] = useState([])
     const [writingAdvice, setWritingAdvice] = useState([])
     const context = useAdsContext();
+    const navigate = useNavigate()
     const maxInput =
     progress === 3 || progress === 4 || progress === 5
       ? 100
@@ -220,25 +222,22 @@ const Home = () => {
     useEffect(() => {
       const loadLIFF = async () => {
         try {
-          await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js')
-            .then(() => {
-              const liff = window.liff;
+          await import("https://static.line-scdn.net/liff/edge/2.1/sdk.js").then(() => {
+            const liff = window.liff;
   
-              if (liff) {
-                liff.init({
-                  liffId: "2006819941-jWGNQ53X",
-                })
+            if (liff) {
+              liff.init({ liffId: "2006819941-jWGNQ53X" })
                 .then(() => {
                   if (liff.isLoggedIn()) {
                     liff.getProfile()
                       .then((profile) => {
-  
                         setUserId(profile.userId);
                         setFormData(prevData => ({
                           ...prevData,
                           userId: profile.userId,
                           displayName: profile.displayName
                         }));
+                        navigate("/form");
                       })
                       .catch((err) => {
                         console.error("Error fetching user profile:", err);
@@ -253,15 +252,15 @@ const Home = () => {
                   console.error("Error initializing LIFF:", err);
                   alert("Error initializing LIFF SDK. Please try again later.");
                 });
-              } else {
-                console.error("LIFF SDK not found on window object.");
-                alert("LIFF SDK not loaded properly.");
-              }
-            })
-            .catch((error) => {
-              console.error("Error loading LIFF SDK:", error);
-              alert("Failed to load LIFF SDK. Please try again later.");
-            });
+            } else {
+              console.error("LIFF SDK not found on window object.");
+              alert("LIFF SDK not loaded properly.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error loading LIFF SDK:", error);
+            alert("Failed to load LIFF SDK. Please try again later.");
+          });
         } catch (error) {
           console.error("Unexpected error:", error);
           alert("An unexpected error occurred. Please try again.");
@@ -269,7 +268,7 @@ const Home = () => {
       };
   
       loadLIFF();
-    }, []);
+    }, [navigate]);
   
     useEffect(() => {
       if (userId) {
