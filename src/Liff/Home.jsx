@@ -217,69 +217,68 @@ const Home = () => {
       fetchQuestions();
     }, []);
 
-    // useEffect(() => {
-    //   const loadLIFF = async () => {
-    //     try {
-    //       await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js')
-    //         .then(() => {
-    //           const liff = window.liff;
+    useEffect(() => {
+      const loadLIFF = async () => {
+        try {
+          await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js')
+            .then(() => {
+              const liff = window.liff;
   
-    //           if (liff) {
-    //             liff.init({
-    //               liffId: "2006819941-jWGNQ53X",
-    //             })
-    //             .then(() => {
-    //               if (liff.isLoggedIn()) {
-    //                 liff.getProfile()
-    //                   .then((profile) => {
+              if (liff) {
+                liff.init({
+                  liffId: "2006819941-jWGNQ53X",
+                })
+                .then(() => {
+                  if (liff.isLoggedIn()) {
+                    liff.getProfile()
+                      .then((profile) => {
   
-    //                     setUserId(profile.userId);
-    //                     setFormData(prevData => ({
-    //                       ...prevData,
-    //                       userId: profile.userId,
-    //                       displayName: profile.displayName
-    //                     }));
-    //                   })
-    //                   .catch((err) => {
-    //                     console.error("Error fetching user profile:", err);
-    //                     alert("Error fetching user profile. Please try again.");
-    //                   });
-    //               } else {
-    //                 alert("ユーザーがログインしていません。ユーザー ID が検出されません。");
-    //                 liff.login();
-    //               }
-    //             })
-    //             .catch((err) => {
-    //               console.error("Error initializing LIFF:", err);
-    //               alert("Error initializing LIFF SDK. Please try again later.");
-    //             });
-    //           } else {
-    //             console.error("LIFF SDK not found on window object.");
-    //             alert("LIFF SDK not loaded properly.");
-    //           }
-    //         })
-    //         .catch((error) => {
-    //           console.error("Error loading LIFF SDK:", error);
-    //           alert("Failed to load LIFF SDK. Please try again later.");
-    //         });
-    //     } catch (error) {
-    //       console.error("Unexpected error:", error);
-    //       alert("An unexpected error occurred. Please try again.");
-    //     }
-    //   };
+                        setUserId(profile.userId);
+                        setFormData(prevData => ({
+                          ...prevData,
+                          userId: profile.userId,
+                          displayName: profile.displayName
+                        }));
+                      })
+                      .catch((err) => {
+                        console.error("Error fetching user profile:", err);
+                        alert("Error fetching user profile. Please try again.");
+                      });
+                  } else {
+                    alert("ユーザーがログインしていません。ユーザー ID が検出されません。");
+                    liff.login();
+                  }
+                })
+                .catch((err) => {
+                  console.error("Error initializing LIFF:", err);
+                  alert("Error initializing LIFF SDK. Please try again later.");
+                });
+              } else {
+                console.error("LIFF SDK not found on window object.");
+                alert("LIFF SDK not loaded properly.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error loading LIFF SDK:", error);
+              alert("Failed to load LIFF SDK. Please try again later.");
+            });
+        } catch (error) {
+          console.error("Unexpected error:", error);
+          alert("An unexpected error occurred. Please try again.");
+        }
+      };
   
-    //   loadLIFF();
-    // }, []);
+      loadLIFF();
+    }, []);
   
     useEffect(() => {
-      if (context.userId) {
+      if (userId) {
         setFormData(prevData => ({
           ...prevData,
-          userId: context.userId,
-          displayName: context.displayName
+          userId: userId,
         }));
       }
-    }, [context.userId]);
+    }, [userId]);
   
     const handleSubmit = async () => {
       context.setIsLoading(true);
@@ -316,7 +315,7 @@ const Home = () => {
     if(context.isReady === true){
       return <Option 
         prompt={prompt}
-        userId={context.userId}
+        userId={userId}
       />
     }
     if (context.isLoading) {
