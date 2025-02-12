@@ -316,7 +316,7 @@ const Home = () => {
     if(context.isReady === true){
       return <Option 
         prompt={prompt}
-        userId={userId}
+        userId={context.userId}
       />
     }
     if (context.isLoading) {
