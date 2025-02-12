@@ -144,7 +144,7 @@ function Carousel() {
         <p>実際の使い方はこちらから</p>
         <CarouselOperation slide={slide} />
       </div>
-      <Link to='/form' className="bg-blue-400 my-5 py-2 px-5 rounded-md font-bold cursor-pointer hover:bg-blue-300">
+      <Link to='/' className="bg-blue-400 my-5 py-2 px-5 rounded-md font-bold cursor-pointer hover:bg-blue-300">
         Go to form
       </Link>
     </div>
