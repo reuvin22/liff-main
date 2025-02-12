@@ -35,6 +35,8 @@ import OperationalG from "./operational/7.png";
 import OperationalH from "./operational/8.png";
 import OperationalI from "./operational/9.png";
 import OperationalJ from "./operational/10.png";
+import Home from "../Home";
+import { Link } from "react-router-dom";
 // import OperationalK from "./operational/11.png";
 // import OperationalL from "./operational/12.png";
 // import OperationalM from "./operational/13.png";
@@ -142,6 +144,9 @@ function Carousel() {
         <p>実際の使い方はこちらから</p>
         <CarouselOperation slide={slide} />
       </div>
+      <Link to='/form' className="bg-blue-400 my-5 py-2 px-5 rounded-md font-bold cursor-pointer hover:bg-blue-300">
+        Go to form
+      </Link>
     </div>
   );
 }
