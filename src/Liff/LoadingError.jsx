@@ -11,11 +11,12 @@ function LoadingError({userId}) {
     const [compressData, setCompressData] = useState("")
     const [isGenerate, setIsGenerate] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const handleGenerate = () => {
         setIsLoading(true)
         axios.get(
-            `https://reuvindevs.com/liff/public/api/generate/${userId}`
+            `${apiUrl}generate/${userId}`
         ).then((response) => {
             setGenerate(response.data)
             setIsGenerate(true)

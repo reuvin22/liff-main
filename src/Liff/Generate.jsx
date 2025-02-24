@@ -20,6 +20,7 @@ function Generate({prompt, userId}) {
     const generateContext = useGenerateContext()
     const [shouldRenderCompress, setShouldRenderCompress] = useState(false)
     const [stopLoading, setStopLoading] = useState(false)
+    const apiUrl = import.meta.env.VITE_API_URL;
     useEffect(() => {
         if(!prompt){
             handleGenerate()
@@ -33,7 +34,7 @@ function Generate({prompt, userId}) {
         context.setIsLoading(true);
         setGenerate("")
         try{
-            const response = await axios.get(`https://reuvindevs.com/liff/public/api/compress/${userId}`);
+            const response = await axios.get(`${apiUrl}compress/${userId}`);
             setCompressData(response.data);
             const errorMessages = [
                 "申し訳ありませんが、その要件を満たすことはできません。",
@@ -58,7 +59,7 @@ function Generate({prompt, userId}) {
         context.setIsLoading(true);
         
         try {
-            const response = await axios.get(`https://reuvindevs.com/liff/public/api/generate/${userId}`);
+            const response = await axios.get(`${apiUrl}generate/${userId}`);
             
             setGenerate(response.data);
     

@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import Generate from './Generate';
 import { useNavigate } from 'react-router-dom';
 import { useAdsContext } from '../utils/context';
+import axios from 'axios';
 
 function Option({ prompt, userId }) {
   const [isGenerate, setIsGenerate] = useState(false);
   const context = useAdsContext()
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleGenerate = () => {
     if (!prompt) {
@@ -17,7 +19,7 @@ function Option({ prompt, userId }) {
   };
 
   const handleDownloadRedirect = async () => {
-    const downloadUrl = `https://reuvindevs.com/liff/public/api/convert/${userId}`;
+    const downloadUrl = `${apiUrl}convert/${userId}`;
 
     if (window.liff) {
       try {
@@ -32,6 +34,16 @@ function Option({ prompt, userId }) {
       } catch (error) {
         console.error('Error sending message:', error);
       }
+    }
+
+    try {
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error downloading file with Axios:', error);
     }
   };
 

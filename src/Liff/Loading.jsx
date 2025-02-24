@@ -6,12 +6,13 @@ const Loading = ({ generate, prompt }) => {
     const [ads, setAds] = useState(null);
     const context = useAdsContext();
     const [generated, setGenerated] = useState(false)
+    const apiUrl = import.meta.env.VITE_API_URL;
     const fetchAds = async () => {
         if(context.isClicked === 'Generate'){
             context.setGenerateIsReady(false)
         }
         try {
-            const response = await axios.get("https://reuvindevs.com/liff/public/api/firebase-files");
+            const response = await axios.get(`${apiUrl}firebase-files`);
             setAds(response.data);
     
             context.setAdsPlaying(true);

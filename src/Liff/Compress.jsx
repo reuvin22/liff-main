@@ -12,6 +12,7 @@ function Compress({prompt, userId}) {
     const [compressData, setCompressData] = useState("")
     const [copy, setCopy] = useState(false)
     const context = useAdsContext()
+    const apiUrl = import.meta.env.VITE_API_URL;
     const [shouldRenderGenerate, setShouldRenderGenerate] = useState(false)
     function backToHome() {
         if (liff.isInClient()) {
@@ -25,7 +26,7 @@ function Compress({prompt, userId}) {
         context.setIsLoading(true);
     
         try {
-            const response = await axios.get(`https://reuvindevs.com/liff/public/api/generate/${userId}`);
+            const response = await axios.get(`${apiUrl}generate/${userId}`);
             setGenerate(response.data);
     
             const errorMessages = [

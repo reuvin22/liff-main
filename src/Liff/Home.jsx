@@ -23,6 +23,9 @@ const Home = () => {
     const [questionList, setQuestionList] = useState([])
     const [writingAdvice, setWritingAdvice] = useState([])
     const context = useAdsContext();
+    const liffId = import.meta.env.VITE_APP_LIFF_ID;
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const maxInput =
     progress === 3 || progress === 4 || progress === 5
       ? 100
@@ -203,7 +206,7 @@ const Home = () => {
     useEffect(() => {
       const fetchQuestions = async () => {
         try {
-          const response = await axios.get("https://reuvindevs.com/liff/public/api/questions");
+          const response = await axios.get(`${apiUrl}questions`);
           setQuestionList(response.data.questions);
           setWritingAdvice(response.data.writing_advice);
         } catch (error) {
@@ -226,7 +229,7 @@ const Home = () => {
   
               if (liff) {
                 liff.init({
-                  liffId: "2006819941-jWGNQ53X",
+                  liffId: liffId,
                 })
                 .then(() => {
                   if (liff.isLoggedIn()) {
@@ -285,7 +288,7 @@ const Home = () => {
   
       try {
         const postResponse = await axios.post(
-            "https://reuvindevs.com/liff/public/api/answers",
+            `${apiUrl}answers`,
             formData,
             {
                 headers: {
