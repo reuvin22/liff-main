@@ -229,7 +229,7 @@ const Home = () => {
   
               if (liff) {
                 liff.init({
-                  liffId: liffId,
+                  liffId: "2006819941-BY2RLPME",
                 })
                 .then(() => {
                   if (liff.isLoggedIn()) {
