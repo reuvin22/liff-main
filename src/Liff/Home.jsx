@@ -51,7 +51,7 @@ const Home = () => {
         Question_10: '',
         Question_11: ''
     });
-    const [userId, setUserId] = useState(null);
+    const [userId, setUserId] = useState('');
 
     const options = [
         "FP知識",
@@ -229,7 +229,7 @@ const Home = () => {
   
               if (liff) {
                 liff.init({
-                  liffId: "2006819941-BY2RLPME",
+                  liffId: "2006819941-jWGNQ53X",
                 })
                 .then(() => {
                   if (liff.isLoggedIn()) {
