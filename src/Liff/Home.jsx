@@ -244,8 +244,8 @@ const Home = () => {
                         }));
                       })
                       .catch((err) => {
-                        console.error("Error fetching user profile:", err);
-                        alert("Error fetching user profile. Please try again.");
+                        console.error("ユーザー プロファイルの取得中にエラーが発生しました:", err);
+                        alert("ユーザー プロファイルの取得中にエラーが発生しました。もう一度お試しください。");
                       });
                   } else {
                     alert("ユーザーがログインしていません。ユーザー ID が検出されません。");
@@ -253,21 +253,21 @@ const Home = () => {
                   }
                 })
                 .catch((err) => {
-                  console.error("Error initializing LIFF:", err);
-                  alert("Error initializing LIFF SDK. Please try again later.");
+                  console.error("LIFFの初期化中にエラーが発生しました:", err);
+                  alert("LIFF SDKの初期化中にエラーが発生しました。しばらくしてからもう一度お試しください。");
                 });
               } else {
-                console.error("LIFF SDK not found on window object.");
-                alert("LIFF SDK not loaded properly.");
+                console.error("ウィンドウオブジェクトにLIFF SDKが見つかりません。");
+                alert("LIFF SDKが正しく読み込まれていません。");
               }
             })
             .catch((error) => {
               console.error("Error loading LIFF SDK:", error);
-              alert("Failed to load LIFF SDK. Please try again later.");
+              alert("LIFF SDK の読み込みに失敗しました。しばらくしてからもう一度お試しください。");
             });
         } catch (error) {
           console.error("Unexpected error:", error);
-          alert("An unexpected error occurred. Please try again.");
+          alert("予期しないエラーが発生しました。もう一度お試しください。");
         }
       };
   
@@ -310,7 +310,7 @@ const Home = () => {
           }
       } catch (error) {
           console.error("Error during submission or fetching prompt:", error);
-          alert("An error occurred while processing your request.");
+          alert("リクエストの処理中にエラーが発生しました。");
           <LoadingError />
       }
   };
