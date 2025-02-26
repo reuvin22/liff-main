@@ -249,7 +249,7 @@ const Home = () => {
                       });
                   } else {
                     alert("ユーザーがログインしていません。ユーザー ID が検出されません。");
-                    // liff.login();
+                    liff.login();
                   }
                 })
                 .catch((err) => {
