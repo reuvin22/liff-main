@@ -23,11 +23,10 @@ const Loading = ({ generate, prompt }) => {
                     if (prev <= 1) {
                         clearInterval(newInterval);
     
-                        if (generate || prompt) {
+                        if (generate) {
                             context.setIsReady(true);
                         }
     
-                        setGenerated(!generated)
                         context.setAdsPlaying(false);
                         return 0;
                     }
