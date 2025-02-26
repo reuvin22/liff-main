@@ -12,8 +12,8 @@ function Compress({prompt, userId}) {
     const [compressData, setCompressData] = useState("")
     const [copy, setCopy] = useState(false)
     const context = useAdsContext()
-    const [shouldRenderGenerate, setShouldRenderGenerate] = useState(false)
     const apiUrl = import.meta.env.VITE_API_URL;
+    const [shouldRenderGenerate, setShouldRenderGenerate] = useState(false)
     function backToHome() {
         if (liff.isInClient()) {
           liff.closeWindow();
