@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import Generate from './Generate';
 import { useNavigate } from 'react-router-dom';
 import { useAdsContext } from '../utils/context';
+import axios from 'axios';
 
 function Option({ prompt, userId }) {
   const [isGenerate, setIsGenerate] = useState(false);
   const context = useAdsContext()
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   const handleGenerate = () => {
     if (!prompt) {
       console.log('PROMPT IS EMPTY');
@@ -17,24 +18,44 @@ function Option({ prompt, userId }) {
   };
 
   const handleDownloadRedirect = async () => {
-    const downloadUrl = `https://reuvindevs.com/liff/public/api/convert/${userId}`;
-
-    if (window.liff) {
-      try {
-        await window.liff.sendMessages([
-          {
-            type: 'text',
-            text: `ダウンロードリンク: ${downloadUrl}`,
-          },
-        ]);
-        
-        window.liff.closeWindow();
-      } catch (error) {
-        console.error('Error sending message:', error);
-      }
+    const downloadUrl = `${apiUrl}convert/${userId}`;
+  
+    // If LIFF is available, try sending a message
+    // if (window.liff) {
+    //   try {
+    //     await window.liff.sendMessages([
+    //       {
+    //         type: 'text',
+    //         text: `ダウンロードリンク: ${downloadUrl}`,
+    //       },
+    //     ]);
+    //     // Close the LIFF window if the message is sent successfully
+    //     window.liff.closeWindow();
+    //     return; // Stop further execution if LIFF operation was successful
+    //   } catch (error) {
+    //     console.error(
+    //       'Error sending LIFF message, falling back to Axios download:',
+    //       error
+    //     );
+    //   }
+    // }
+  
+    try {
+      const response = await axios.get(downloadUrl, { responseType: 'blob' });
+      const blob = new Blob([response.data], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'downloaded.txt';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading file with Axios:', error);
     }
   };
-
+  
   if (isGenerate) {
     return <Generate prompt={prompt} userId={userId} />;
   }

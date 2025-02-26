@@ -23,6 +23,7 @@ const Home = () => {
     const [questionList, setQuestionList] = useState([])
     const [writingAdvice, setWritingAdvice] = useState([])
     const context = useAdsContext();
+    const apiUrl = import.meta.env.VITE_API_URL;
     const maxInput =
     progress === 3 || progress === 4 || progress === 5
       ? 100
@@ -32,8 +33,8 @@ const Home = () => {
       ? 600
       : 200;
     const [formData, setFormData] = useState({
-        userId: null,
-        displayName: '',
+        userId: 12321312,
+        displayName: 'Reuvin',
         Question_1: '',
         Ability_Desc_1: '',
         Question_2: '',
@@ -203,7 +204,7 @@ const Home = () => {
     useEffect(() => {
       const fetchQuestions = async () => {
         try {
-          const response = await axios.get("https://reuvindevs.com/liff/public/api/questions");
+          const response = await axios.get(`${apiUrl}questions`);
           setQuestionList(response.data.questions);
           setWritingAdvice(response.data.writing_advice);
         } catch (error) {
@@ -246,7 +247,7 @@ const Home = () => {
                       });
                   } else {
                     alert("ユーザーがログインしていません。ユーザー ID が検出されません。");
-                    liff.login();
+                    // liff.login();
                   }
                 })
                 .catch((err) => {
@@ -285,7 +286,7 @@ const Home = () => {
   
       try {
         const postResponse = await axios.post(
-            "https://reuvindevs.com/liff/public/api/answers",
+            `${apiUrl}answers`,
             formData,
             {
                 headers: {
