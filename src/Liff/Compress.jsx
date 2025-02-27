@@ -41,14 +41,16 @@ function Compress({prompt, userId}) {
             ];
     
             if (errorMessages.includes(response.data)) {
-                <LoadingError />
+                setIsLoading(false);
+                <LoadingError userId={userId}/>
                 return;
             }
     
         } catch (error) {
             console.error("❌ Error fetching generated response:", error);
             setError(true);
-            <LoadingError />
+            setIsLoading(false);
+            <LoadingError userId={userId}/>
         } 
     };    
 

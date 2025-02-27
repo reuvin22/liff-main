@@ -43,8 +43,9 @@ function Generate({prompt, userId}) {
                 "申し訳ございませんが、その内容を基に資料を作成することはできません。"
             ];
     
-            if (errorMessages.includes(response.data)) {
-                setError(true);
+            if (errorMessages.includes(response.data) || response.data === "") {
+                setIsLoading(false);
+                <LoadingError userId={userId} />
             }
         }catch(error){
             setIsLoading(false);
