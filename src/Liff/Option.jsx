@@ -19,26 +19,24 @@ function Option({ prompt, userId }) {
 
   const handleDownloadRedirect = async () => {
     const downloadUrl = `${apiUrl}convert/${userId}`;
-  
-    // If LIFF is available, try sending a message
-    // if (window.liff) {
-    //   try {
-    //     await window.liff.sendMessages([
-    //       {
-    //         type: 'text',
-    //         text: `ダウンロードリンク: ${downloadUrl}`,
-    //       },
-    //     ]);
-    //     // Close the LIFF window if the message is sent successfully
-    //     window.liff.closeWindow();
-    //     return; // Stop further execution if LIFF operation was successful
-    //   } catch (error) {
-    //     console.error(
-    //       'Error sending LIFF message, falling back to Axios download:',
-    //       error
-    //     );
-    //   }
-    // }
+
+    if (window.liff) {
+      try {
+        await window.liff.sendMessages([
+          {
+            type: 'text',
+            text: `ダウンロードリンク: ${downloadUrl}`,
+          },
+        ]);
+        window.liff.closeWindow();
+        return;
+      } catch (error) {
+        console.error(
+          'Error sending LIFF message, falling back to Axios download:',
+          error
+        );
+      }
+    }
   
     try {
       const response = await axios.get(downloadUrl, { responseType: 'blob' });
