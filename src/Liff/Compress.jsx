@@ -40,7 +40,7 @@ function Compress({prompt, userId}) {
                 "申し訳ありませんが、具体的な内容を提供することはできません。しかし、応募書類や自己PR作成のご相談に応じることは可能です。どのようにサポートできるかお聞かせください。"
             ];
     
-            if (errorMessages.includes(response.data)) {
+            if (errorMessages.includes(response.data) || response.data === "") {
                 setIsLoading(false);
                 <LoadingError userId={userId}/>
                 return;
