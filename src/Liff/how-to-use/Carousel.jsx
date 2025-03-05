@@ -5,8 +5,6 @@ import "slick-carousel/slick/slick-theme.css";
 import "./Carousel.css";
 import CarouselQuestion from "./CarouselQuestion";
 import CarouselOperation from "./CarouselOperation";
-import CarouselDosDonts from "./CarouselDosDonts";
-
 import ImageA from "./questions/1.png";
 import ImageB from "./questions/2.png";
 import ImageC from "./questions/3.png";
@@ -41,11 +39,6 @@ import OperationalJ from "./operational/10.png";
 // import OperationalL from "./operational/12.png";
 // import OperationalM from "./operational/13.png";
 
-import DosDonts1 from "./dosdonts/1.png";
-import DosDonts2 from "./dosdonts/2.png";
-import DosDonts3 from "./dosdonts/3.png";
-import DosDonts4 from "./dosdonts/4.png";
-
 const slides = [
   { text: "質問1：強み", image: ImageA, alt: "Slide 1" },
   { text: "質問2：強み", image: ImageB, alt: "Slide 2" },
@@ -66,13 +59,6 @@ const slides = [
   // { text: "質問11：志望企業情報", image: ImageQ, alt: "Slide 17" },
   // { text: "質問11：補足", image: ImageR, alt: "Slide 18" },
   // { text: "質問12：志望企業情報", image: ImageS, alt: "Slide 19" }
-];
-
-const slidess = [
-  { text: "やるべきこと", image: DosDonts1, alt: "Slide 1" },
-  { text: "やるべきこと", image: DosDonts2, alt: "Slide 2" },
-  { text: "やるべきこと", image: DosDonts3, alt: "Slide 3" },
-  { text: "してはいけないこと", image: DosDonts4, alt: "Slide 4" },
 ];
 
 const slide = [
@@ -155,11 +141,6 @@ function Carousel() {
         <h4 className="font-bold">2. 使い方</h4>
         <p>実際の使い方はこちらから</p>
         <CarouselOperation slide={slide} />
-      </div>
-
-      <div className="operational text-center">
-        <h4 className="font-bold">3. すべきこととすべきでないこと</h4>
-        <CarouselDosDonts slide={slidess} />
       </div>
     </div>
   );
