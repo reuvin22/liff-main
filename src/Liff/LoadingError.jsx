@@ -1,4 +1,5 @@
 import liff from '@line/liff';
+import axios from 'axios';
 import React, { useState } from 'react'
 
 function LoadingError({userId}) {
@@ -22,10 +23,10 @@ function LoadingError({userId}) {
             setIsGenerate(true)
             setIsLoading(false)
             if(response.data === "申し訳ありませんが、そのリクエストには対応できません。" || response.data === "申し訳ございませんが、このリクエストを処理することはできません。"){
-                <LoadingError />
+                <LoadingError userId={userId}/>
             }
         }).catch((error) => {
-            return <LoadingError />
+            return <LoadingError userId={userId}/>
         });
     }
 
@@ -40,15 +41,17 @@ function LoadingError({userId}) {
     if(isCompress){
         return <Compress 
             prompt={compressData}
+            userId={userId}
         />
     }
     if(generate){
         return <Generate 
             prompt={generate}
+            userId={userId}
         />
     }
     if(isLoading){
-        return <Loading generate={generate ? generate : compressData}/>
+        return <Loading generate={generate} userId={userId} prompt={compressData}/>
     }
 
   return (
