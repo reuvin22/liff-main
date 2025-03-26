@@ -36,7 +36,7 @@ const Home = () => {
       : 200;
     const [formData, setFormData] = useState({
         userId: null,
-        displayName: '',
+        displayName: 'Reuvin',
         Question_1: '',
         Ability_Desc_1: '',
         Question_2: '',
@@ -51,8 +51,7 @@ const Home = () => {
         Question_10: '',
         Question_11: ''
     });
-    const [userId, setUserId] = useState('');
-
+    const [userId, setUserId] = useState('12312321');
     const options = [
         "FP知識",
         "IT知識",
@@ -249,7 +248,7 @@ const Home = () => {
                       });
                   } else {
                     alert("ユーザーがログインしていません。ユーザー ID が検出されません。");
-                    // liff.login();
+                    liff.login();
                   }
                 })
                 .catch((err) => {
@@ -301,7 +300,7 @@ const Home = () => {
               postResponse.data.openai === "申し訳ありませんが、そのリクエストには対応できません。" ||
               postResponse.data.openai === "申し訳ございませんが、このリクエストを処理することはできません。"
           ) {
-              <LoadingError userId={userId} />
+            <LoadingError userId={userId} />
           }
           if (postResponse.status === 200) {
               setPrompt(postResponse.data.openai);
@@ -315,8 +314,15 @@ const Home = () => {
       }
   };
     
+    // if(context.isReady === true){
+    //   return <Generate
+    //     prompt={prompt}
+    //     userId={userId}
+    //   />
+    // }
+
     if(context.isReady === true){
-      return <Generate
+      return <Option
         prompt={prompt}
         userId={userId}
       />

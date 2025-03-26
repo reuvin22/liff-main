@@ -14,6 +14,7 @@ function Compress({prompt, userId}) {
     const context = useAdsContext()
     const apiUrl = import.meta.env.VITE_API_URL;
     const [shouldRenderGenerate, setShouldRenderGenerate] = useState(false)
+    const [isWeb, setIsWeb] = useState(false)
     function backToHome() {
         if (liff.isInClient()) {
           liff.closeWindow();
@@ -21,6 +22,29 @@ function Compress({prompt, userId}) {
           console.warn('LIFF is not running in the LINE app.');
         }
       }
+
+    useEffect(() => {
+        const platform = async () => {
+            try {
+                await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js');
+                      
+                const liff = window.liff;
+                if (liff) {
+                    await liff.init({ 
+                        liffId: "2006819941-jWGNQ53X" 
+                    });
+      
+                const isInLineApp = liff.isInClient();
+                    setIsWeb(() => !isInLineApp);
+                }
+            } catch (error) {
+                console.error("LIFF Error:", error);
+            }
+        };
+      
+    platform();
+    }, []);
+
       const handleGenerate = async () => {
         context.setIsClicked('Generate')
         context.setIsLoading(true);
@@ -105,11 +129,16 @@ function Compress({prompt, userId}) {
                     <p className='text-sm px-2 text-justify whitespace-pre-line'>{compressData ? formatJapaneseText(compressData) : formatJapaneseText(prompt)}</p>
                 </div>
                 <div className="flex space-x-2">
-                <button onClick={backToHome} className="bg-gray-400 text-white px-4 border flex-1 text-sm">
-                    ホーム
-                </button>
-                <button onClick={handleGenerate} className="bg-green-400 text-white px-4 border flex-1 text-sm">
+                {isWeb ? null : (
+                    <button onClick={backToHome} className="bg-gray-400 text-white px-4 border flex-1 text-sm">
+                        ホーム
+                    </button>
+                )}
+                {/* <button onClick={handleGenerate} className="bg-green-400 text-white px-4 border flex-1 text-sm">
                     長文から再生成
+                </button> */}
+                <button onClick={handleGenerate} className="bg-green-400 text-white px-4 border flex-1 text-sm">
+                    再生成
                 </button>
                 <button onClick={handleCopy} className="bg-yellow-400 text-white px-4 border flex-1 text-sm">
                     クリップボードにコピー
