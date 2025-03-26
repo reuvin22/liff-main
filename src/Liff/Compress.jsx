@@ -109,7 +109,7 @@ function Compress({prompt, userId}) {
                     ホーム
                 </button>
                 <button onClick={handleGenerate} className="bg-green-400 text-white px-4 border flex-1 text-sm">
-                    再生成
+                    長文から再生成
                 </button>
                 <button onClick={handleCopy} className="bg-yellow-400 text-white px-4 border flex-1 text-sm">
                     クリップボードにコピー

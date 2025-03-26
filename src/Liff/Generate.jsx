@@ -41,15 +41,7 @@ function Generate({prompt, userId}) {
                         liffId: "2006819941-jWGNQ53X" 
                     });
 
-                    const os = liff.getOS();
-                    console.log("Detected by LIFF:", os);
-
                     const isInLineApp = liff.isInClient();
-                    console.log("Inside LINE App:", isInLineApp ? "Yes" : "No");
-
-                    const userAgent = navigator.userAgent.toLowerCase();
-                    const isExternalBrowser = !/line/i.test(userAgent);
-                    console.log("Using External Browser:", isExternalBrowser ? "Yes" : "No");
 
                     setIsWeb(() => !isInLineApp);
                 }
@@ -60,10 +52,6 @@ function Generate({prompt, userId}) {
 
         platform();
     }, []);
-    
-    useEffect(() => {
-        console.log("isWeb updated:", isWeb);
-    }, [isWeb]);
 
     const handleCompress = async() => {
         context.setIsClicked('Compress')

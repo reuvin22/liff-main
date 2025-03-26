@@ -316,7 +316,7 @@ const Home = () => {
   };
     
     if(context.isReady === true){
-      return <Option 
+      return <Generate
         prompt={prompt}
         userId={userId}
       />
