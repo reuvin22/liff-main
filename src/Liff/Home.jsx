@@ -35,8 +35,8 @@ const Home = () => {
       ? 600
       : 200;
     const [formData, setFormData] = useState({
-        userId: 12321312,
-        displayName: 'Reuvin',
+        userId: null,
+        displayName: '',
         Question_1: '',
         Ability_Desc_1: '',
         Question_2: '',
