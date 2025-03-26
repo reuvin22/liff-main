@@ -20,7 +20,7 @@ function Generate({prompt, userId}) {
     const generateContext = useGenerateContext()
     const [shouldRenderCompress, setShouldRenderCompress] = useState(false)
     const [stopLoading, setStopLoading] = useState(false)
-    const [isWeb, setIsWeb] = useState("")
+    const [isWeb, setIsWeb] = useState(false)
     const apiUrl = import.meta.env.VITE_API_URL;
     useEffect(() => {
         if(!prompt){
@@ -40,28 +40,31 @@ function Generate({prompt, userId}) {
                     await liff.init({ 
                         liffId: "2006819941-jWGNQ53X" 
                     });
-    
+
                     const os = liff.getOS();
                     console.log("Detected by LIFF:", os);
-    
+
+                    const isInLineApp = liff.isInClient();
+                    console.log("Inside LINE App:", isInLineApp ? "Yes" : "No");
+
                     const userAgent = navigator.userAgent.toLowerCase();
-                    const isBrowser = !/line/i.test(userAgent);
-                    console.log("User Agent Check:", isBrowser ? "web" : "line-app");
+                    const isExternalBrowser = !/line/i.test(userAgent);
+                    console.log("Using External Browser:", isExternalBrowser ? "Yes" : "No");
 
-                    if(isBrowser === 'web'){
-                        setIsWeb(true)
-                    }
-
-                    setIsWeb(false)
+                    setIsWeb(() => !isInLineApp);
                 }
             } catch (error) {
-                alert(error);
+                console.error("LIFF Error:", error);
             }
         };
-    
+
         platform();
-    }, []);    
+    }, []);
     
+    useEffect(() => {
+        console.log("isWeb updated:", isWeb);
+    }, [isWeb]);
+
     const handleCompress = async() => {
         context.setIsClicked('Compress')
         context.setIsLoading(true);
@@ -196,7 +199,7 @@ function Generate({prompt, userId}) {
                     クリップボードにコピー
                 </button>
                 </div>
-                {isWeb && (
+                {isWeb ? null : (
                     <div onClick={backToHome} className='border-1 border-black mt-1 bg-gray-300'>
                         <button className='py-2'>
                             ホーム

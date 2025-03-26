@@ -249,7 +249,7 @@ const Home = () => {
                       });
                   } else {
                     alert("ユーザーがログインしていません。ユーザー ID が検出されません。");
-                    liff.login();
+                    // liff.login();
                   }
                 })
                 .catch((err) => {
@@ -301,7 +301,7 @@ const Home = () => {
               postResponse.data.openai === "申し訳ありませんが、そのリクエストには対応できません。" ||
               postResponse.data.openai === "申し訳ございませんが、このリクエストを処理することはできません。"
           ) {
-              setHasError(true);
+              <LoadingError userId={userId} />
           }
           if (postResponse.status === 200) {
               setPrompt(postResponse.data.openai);
