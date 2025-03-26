@@ -20,7 +20,7 @@ function Generate({prompt, userId}) {
     const generateContext = useGenerateContext()
     const [shouldRenderCompress, setShouldRenderCompress] = useState(false)
     const [stopLoading, setStopLoading] = useState(false)
-    const [isWeb, setIsWeb] = useState(false)
+    const [isWeb, setIsWeb] = useState("")
     const apiUrl = import.meta.env.VITE_API_URL;
     useEffect(() => {
         if(!prompt){
@@ -31,24 +31,37 @@ function Generate({prompt, userId}) {
     }, [])
     
     useEffect(() => {
-        const platform = async() => {
+        const platform = async () => {
             try {
-                await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js')
-                .then(() => {
-                    const liff = window.liff
-                    if(liff.getOS === 'web'){
-                        console.log(liff.getOS)
+                await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js');
+                
+                const liff = window.liff;
+                if (liff) {
+                    await liff.init({ 
+                        liffId: "2006819941-jWGNQ53X" 
+                    });
+    
+                    const os = liff.getOS();
+                    console.log("Detected by LIFF:", os);
+    
+                    const userAgent = navigator.userAgent.toLowerCase();
+                    const isBrowser = !/line/i.test(userAgent);
+                    console.log("User Agent Check:", isBrowser ? "web" : "line-app");
+
+                    if(isBrowser === 'web'){
                         setIsWeb(true)
                     }
-                    console(liff.getOS)
+
                     setIsWeb(false)
-                })
+                }
             } catch (error) {
-                alert(error)
+                alert(error);
             }
-        }
-        platform()
-    }, [])
+        };
+    
+        platform();
+    }, []);    
+    
     const handleCompress = async() => {
         context.setIsClicked('Compress')
         context.setIsLoading(true);
@@ -183,11 +196,13 @@ function Generate({prompt, userId}) {
                     クリップボードにコピー
                 </button>
                 </div>
-                <div onClick={backToHome} className='border-1 border-black mt-1 bg-gray-300'>
-                    <button className='py-2'>
-                    ホーム
-                    </button>
-                </div>
+                {isWeb && (
+                    <div onClick={backToHome} className='border-1 border-black mt-1 bg-gray-300'>
+                        <button className='py-2'>
+                            ホーム
+                        </button>
+                    </div>
+                )}
             </div>
     </div>
     );
