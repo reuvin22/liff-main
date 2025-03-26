@@ -51,7 +51,7 @@ const Home = () => {
         Question_10: '',
         Question_11: ''
     });
-    const [userId, setUserId] = useState('');
+    const [userId, setUserId] = useState('12312312');
 
     const options = [
         "FP知識",
@@ -299,16 +299,9 @@ const Home = () => {
   
           if (
               postResponse.data.openai === "申し訳ありませんが、そのリクエストには対応できません。" ||
-              postResponse.data.openai === "申し訳ございませんが、このリクエストを処理することはできません。" ||
-              postResponse.data.openai === "申し訳ありませんが、このリクエストには対応できません。" ||
-              postResponse.data.openai === "申し訳ございませんが、そのような要件を満たすアウトプットを生成することはできません。" ||
-              postResponse.data.openai === "申し訳ございませんが、その内容を基に資料を作成することはできません。" ||
-              postResponse.data.openai === "申し訳ありませんが、その指示に従って3000文字以上の出力を行うことはできません。しかし、特定の質問に対して回答を生成したり、情報を提供することは可能です。どのようにお手伝いできるか教えてください。" || 
-              postResponse.data.openai === "申し訳ありませんが、それに関してはお手伝いできません。" ||
-              postResponse.data.openai === "申し訳ありませんが、具体的な内容を提供することはできません。しかし、応募書類や自己PR作成のご相談に応じることは可能です。どのようにサポートできるかお聞かせください。" ||
-              postResponse.data.openai === ""
-            ) {
-              <LoadingError userId={userId} />
+              postResponse.data.openai === "申し訳ございませんが、このリクエストを処理することはできません。"
+          ) {
+              setHasError(true);
           }
           if (postResponse.status === 200) {
               setPrompt(postResponse.data.openai);
