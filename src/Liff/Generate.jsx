@@ -48,11 +48,12 @@ function Generate({prompt, userId}) {
                     const isBrowser = !/line/i.test(userAgent);
                     console.log("User Agent Check:", isBrowser ? "web" : "line-app");
 
-                    if(isBrowser === 'web'){
+                    if(isBrowser){
                         setIsWeb(true)
+                    }else {
+                        setIsWeb(false)
                     }
 
-                    setIsWeb(false)
                 }
             } catch (error) {
                 alert(error);
@@ -60,8 +61,7 @@ function Generate({prompt, userId}) {
         };
     
         platform();
-    }, []);    
-    
+    }, []);
     const handleCompress = async() => {
         context.setIsClicked('Compress')
         context.setIsLoading(true);
@@ -196,18 +196,13 @@ function Generate({prompt, userId}) {
                     クリップボードにコピー
                 </button>
                 </div>
-                {isWeb && (
+                {isWeb ? null : (
                     <div onClick={backToHome} className='border-1 border-black mt-1 bg-gray-300'>
                         <button className='py-2'>
                             ホーム
                         </button>
                     </div>
                 )}
-                {/* <div onClick={backToHome} className='border-1 border-black mt-1 bg-gray-300'>
-                    <button className='py-2'>
-                            ホーム
-                    </button>
-                </div> */}
             </div>
     </div>
     );
