@@ -129,20 +129,20 @@ function Compress({prompt, userId}) {
                     <p className='text-sm px-2 text-justify whitespace-pre-line'>{compressData ? formatJapaneseText(compressData) : formatJapaneseText(prompt)}</p>
                 </div>
                 <div className="flex space-x-2">
-                {/* {isWeb ? null : (
+                {isWeb ? null : (
                     <button onClick={backToHome} className="bg-gray-400 text-white px-4 border flex-1 text-sm">
                         ホーム
                     </button>
-                )} */}
-                    <button onClick={backToHome} className="bg-gray-400 text-white px-4 border flex-1 text-sm">
-                        ホーム
-                    </button>
-                {/* <button onClick={handleGenerate} className="bg-green-400 text-white px-4 border flex-1 text-sm">
-                    長文から再生成
+                )}
+                {/* <button onClick={backToHome} className="bg-gray-400 text-white px-4 border flex-1 text-sm">
+                    ホーム
                 </button> */}
                 <button onClick={handleGenerate} className="bg-green-400 text-white px-4 border flex-1 text-sm">
-                    再生成
+                    長文から再生成
                 </button>
+                {/* <button onClick={handleGenerate} className="bg-green-400 text-white px-4 border flex-1 text-sm">
+                    再生成
+                </button> */}
                 <button onClick={handleCopy} className="bg-yellow-400 text-white px-4 border flex-1 text-sm">
                     クリップボードにコピー
                 </button>

@@ -36,7 +36,7 @@ const Home = () => {
       : 200;
     const [formData, setFormData] = useState({
         userId: null,
-        displayName: 'Reuvin',
+        displayName: '',
         Question_1: '',
         Ability_Desc_1: '',
         Question_2: '',
@@ -51,7 +51,7 @@ const Home = () => {
         Question_10: '',
         Question_11: ''
     });
-    const [userId, setUserId] = useState('12312321');
+    const [userId, setUserId] = useState('');
     const options = [
         "FP知識",
         "IT知識",
@@ -314,19 +314,19 @@ const Home = () => {
       }
   };
     
-    // if(context.isReady === true){
-    //   return <Generate
-    //     prompt={prompt}
-    //     userId={userId}
-    //   />
-    // }
-
     if(context.isReady === true){
-      return <Option
+      return <Generate
         prompt={prompt}
         userId={userId}
       />
     }
+
+    // if(context.isReady === true){
+    //   return <Option
+    //     prompt={prompt}
+    //     userId={userId}
+    //   />
+    // }
     if (context.isLoading) {
       return <Loading generate={prompt}/>;
     }

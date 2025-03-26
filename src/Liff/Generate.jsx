@@ -30,37 +30,37 @@ function Generate({prompt, userId}) {
         }
     }, [])
     
-    // useEffect(() => {
-    //     const platform = async() => {
-    //         try {
-    //             await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js');
+    useEffect(() => {
+        const platform = async() => {
+            try {
+                await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js');
                 
-    //             const liff = window.liff;
-    //             if (liff) {
-    //                 await liff.init({ 
-    //                     liffId: "2006819941-jWGNQ53X" 
-    //                 });
+                const liff = window.liff;
+                if (liff) {
+                    await liff.init({ 
+                        liffId: "2006819941-jWGNQ53X" 
+                    });
     
-    //                 const os = liff.getOS();
-    //                 console.log("Detected by LIFF:", os);
+                    const os = liff.getOS();
+                    console.log("Detected by LIFF:", os);
     
-    //                 const userAgent = navigator.userAgent.toLowerCase();
-    //                 const isBrowser = !/line/i.test(userAgent);
-    //                 console.log("User Agent Check:", isBrowser ? "web" : "line-app");
+                    const userAgent = navigator.userAgent.toLowerCase();
+                    const isBrowser = !/line/i.test(userAgent);
+                    console.log("User Agent Check:", isBrowser ? "web" : "line-app");
 
-    //                 if(isBrowser === 'web'){
-    //                     setIsWeb(true)
-    //                 }
+                    if(isBrowser === 'web'){
+                        setIsWeb(true)
+                    }
 
-    //                 setIsWeb(false)
-    //             }
-    //         } catch (error) {
-    //             alert(error);
-    //         }
-    //     };
+                    setIsWeb(false)
+                }
+            } catch (error) {
+                alert(error);
+            }
+        };
     
-    //     platform();
-    // }, []);    
+        platform();
+    }, []);    
     
     const handleCompress = async() => {
         context.setIsClicked('Compress')
@@ -187,7 +187,7 @@ function Generate({prompt, userId}) {
                 </div>
                 <div className="flex space-x-2">
                 <button onClick={handleCompress} className="bg-orange-400 text-white px-4 border flex-1 text-sm">
-                    エントリーシートの文字数制限に圧縮
+                    エントリーシート向けに文字数圧縮
                 </button>
                 <button onClick={handleGenerate} className="bg-green-400 text-white px-4 border flex-1 text-sm">
                     再生成
@@ -203,11 +203,11 @@ function Generate({prompt, userId}) {
                         </button>
                     </div>
                 )}
-                <div onClick={backToHome} className='border-1 border-black mt-1 bg-gray-300'>
+                {/* <div onClick={backToHome} className='border-1 border-black mt-1 bg-gray-300'>
                     <button className='py-2'>
                             ホーム
                     </button>
-                </div>
+                </div> */}
             </div>
     </div>
     );
