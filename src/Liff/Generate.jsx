@@ -20,6 +20,7 @@ function Generate({prompt, userId}) {
     const generateContext = useGenerateContext()
     const [shouldRenderCompress, setShouldRenderCompress] = useState(false)
     const [stopLoading, setStopLoading] = useState(false)
+    const [isWeb, setIsWeb] = useState(false)
     const apiUrl = import.meta.env.VITE_API_URL;
     useEffect(() => {
         if(!prompt){
@@ -29,6 +30,25 @@ function Generate({prompt, userId}) {
         }
     }, [])
     
+    useEffect(() => {
+        const platform = async() => {
+            try {
+                await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js')
+                .then(() => {
+                    const liff = window.liff
+                    if(liff.getOS === 'web'){
+                        console.log(liff.getOS)
+                        setIsWeb(true)
+                    }
+                    console(liff.getOS)
+                    setIsWeb(false)
+                })
+            } catch (error) {
+                alert(error)
+            }
+        }
+        platform()
+    }, [])
     const handleCompress = async() => {
         context.setIsClicked('Compress')
         context.setIsLoading(true);
