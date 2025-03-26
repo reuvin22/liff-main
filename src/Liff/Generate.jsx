@@ -4,7 +4,7 @@ import Loading from './Loading';
 import Compress from './Compress';
 import Home from './Home';
 import LoadingError from './LoadingError';
-import { useAdsContext, useGenerateContext } from '../utils/context';   
+import { useAdsContext, useGenerateContext } from '../utils/context';
 function Generate({prompt, userId}) {
     const [copyStatus, setCopyStatus] = useState("");
     const [generate, setGenerate] = useState("");
@@ -20,9 +20,7 @@ function Generate({prompt, userId}) {
     const generateContext = useGenerateContext()
     const [shouldRenderCompress, setShouldRenderCompress] = useState(false)
     const [stopLoading, setStopLoading] = useState(false)
-    const [isWeb, setIsWeb] = useState(false)
     const apiUrl = import.meta.env.VITE_API_URL;
-    const liff = 
     useEffect(() => {
         if(!prompt){
             handleGenerate()
@@ -30,25 +28,7 @@ function Generate({prompt, userId}) {
             context.setIsLoading(false)
         }
     }, [])
-    useEffect(() => {
-        const platform = async() => {
-            try{
-                await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js')
-                .then(() => {
-                    const liff = window.liff
-                    console.log(liff.getOS)
-                    if(liff.getOS === 'web' || liff.getOS === 'WEB'){
-                        setIsWeb(true)
-                    }
-                    setIsWeb(false)
-                })
-            }catch(error){
-                alert(error)
-            }
-        }
-        platform()
-    }, [])
-
+    
     const handleCompress = async() => {
         context.setIsClicked('Compress')
         context.setIsLoading(true);
@@ -183,13 +163,11 @@ function Generate({prompt, userId}) {
                     クリップボードにコピー
                 </button>
                 </div>
-                {isWeb (
-                    <div onClick={backToHome} className='border-1 border-black mt-1 bg-gray-300'>
-                        <button className='py-2'>
-                        ホーム
-                        </button>
-                    </div>
-                )}
+                <div onClick={backToHome} className='border-1 border-black mt-1 bg-gray-300'>
+                    <button className='py-2'>
+                    ホーム
+                    </button>
+                </div>
             </div>
     </div>
     );
