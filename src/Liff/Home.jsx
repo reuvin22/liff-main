@@ -35,7 +35,7 @@ const Home = () => {
       ? 600
       : 200;
     const [formData, setFormData] = useState({
-        userId: 12321312,
+        userId: null,
         displayName: 'Reuvin',
         Question_1: '',
         Ability_Desc_1: '',
@@ -51,7 +51,7 @@ const Home = () => {
         Question_10: '',
         Question_11: ''
     });
-    const [userId, setUserId] = useState('12312312');
+    const [userId, setUserId] = useState('');
 
     const options = [
         "FP知識",
