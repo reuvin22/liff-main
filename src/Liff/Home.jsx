@@ -231,7 +231,9 @@ const Home = () => {
                   liffId: "2006819941-jWGNQ53X",
                 })
                 .then(() => {
-                  if (liff.isLoggedIn()) {
+                  if (!liff.isLoggedIn()) {
+                    return liff.login()
+                  }else {
                     liff.getProfile()
                       .then((profile) => {
   
@@ -246,8 +248,6 @@ const Home = () => {
                         console.error("ユーザー プロファイルの取得中にエラーが発生しました:", err);
                         alert("ユーザー プロファイルの取得中にエラーが発生しました。もう一度お試しください。");
                       });
-                  } else {
-                    liff.login();
                   }
                 })
                 .catch((err) => {
