@@ -19,6 +19,7 @@ function App() {
         <Routes>
             <Route path="/home" element={<Home />} />
             <Route path='/explanation' element={<Carousel />} />
+            <Route path="/" element={<Navigate to={window.location.pathname} replace />} />
         </Routes>
       </AdsContext.Provider>
     </>
