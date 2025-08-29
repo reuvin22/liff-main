@@ -1,9 +1,17 @@
 import React, { useEffect } from 'react';
 
 function LoadingScreen() {
-  useEffect(() => {
-    alert('Welcome!');
-  }, []);
+    useEffect(() => {
+    const path = window.location.pathname; // "/home" or "/explanation"
+
+    setTimeout(() => {
+        if(path === '/explanation') {
+        navigate('/explanation');
+        } else {
+        navigate('/home');
+        }
+    }, 2000);
+    }, []);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
