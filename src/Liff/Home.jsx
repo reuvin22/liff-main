@@ -231,9 +231,9 @@ const Home = () => {
                   liffId: "2006819941-jWGNQ53X",
                 })
                 .then(() => {
-                  if (!liff.isLoggedIn() && questionList.length === 0) {
-                    return liff.login()
-                  }else {
+                  if (!liff.isLoggedIn()) {
+  liff.login({ redirectUri: window.location.href });
+}else {
                     liff.getProfile()
                       .then((profile) => {
   
