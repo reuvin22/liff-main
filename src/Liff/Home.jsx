@@ -232,11 +232,10 @@ const Home = () => {
                 })
                 .then(() => {
                   if (!liff.isLoggedIn() && questionList.length === 0) {
-                    return liff.login()
-                  }else {
-                    liff.login({
-                        redirectUri: `https://liff.line.me/2006819941-jWGNQ53X/home`
+                    return liff.login({
+                      redirectUri: window.location.href
                     });
+                  }else {
                     liff.getProfile()
                       .then((profile) => {
   
