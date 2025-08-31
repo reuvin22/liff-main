@@ -232,10 +232,11 @@ const Home = () => {
                 })
                 .then(() => {
                   if (!liff.isLoggedIn() && questionList.length === 0) {
-                    return liff.login({
-                      redirectUri: `https://liff-main.vercel.app/home`
-                    });
+                    return liff.login()
                   }else {
+                    liff.login({
+                        redirectUri: `https://liff.line.me/2006819941-jWGNQ53X/home`
+                    });
                     liff.getProfile()
                       .then((profile) => {
   
