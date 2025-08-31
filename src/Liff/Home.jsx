@@ -233,7 +233,7 @@ const Home = () => {
                 .then(() => {
                   if (!liff.isLoggedIn() && questionList.length === 0) {
                     return liff.login({
-                      redirectUri: `https://liff.line.me/2006819941-jWGNQ53X/home`
+                      redirectUri: `https://liff-main.vercel.app/home`
                     });
                   }else {
                     liff.getProfile()
