@@ -19,8 +19,8 @@ function App() {
     <>
       <AdsContext.Provider value={{ isDone, setIsDone, isLoading, setIsLoading, isReady, setIsReady, adsPlaying, setAdsPlaying, isClicked, setIsClicked, countdown, setCountdown, countInterval, setCountInterval, generateIsReady, setGenerateIsReady, compressIsReady, setCompressIsReady }}>
         <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/" element={<Carousel />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/explanation" element={<Carousel />} />
           {/* <Route path="*" element={<LoadingScreen />} /> */}
         </Routes>
       </AdsContext.Provider>
