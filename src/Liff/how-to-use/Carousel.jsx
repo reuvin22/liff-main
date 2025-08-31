@@ -144,7 +144,7 @@ function Carousel() {
     <div className="App">
       <h2 style={{ fontSize: '2em' }}>【操作マニュアル】</h2>
       <p className="font-bold">AIと一緒に良いESを作成しましょう！</p>
-      
+      <a href="https://liff.line.me/2006819941-ENbBdgWN?path=/home">TEST</a>
       <div className="questions text-center">
         <h4 className="font-bold">1. 質問一覧</h4>
         {/* <p>強み・経験をAIが質問してくれるのでこちらに一つずつ回答しましょう</p> */}
