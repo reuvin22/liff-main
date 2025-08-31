@@ -232,7 +232,9 @@ const Home = () => {
                 })
                 .then(() => {
                   if (!liff.isLoggedIn() && questionList.length === 0) {
-                    return liff.login()
+                    return liff.login({
+                      redirectUri: `${window.location.origin}/home`
+                    });
                   }else {
                     liff.getProfile()
                       .then((profile) => {
