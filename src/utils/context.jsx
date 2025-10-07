@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext } from 'react';
 
 export const AdsContext = createContext({
     isDone: false,
@@ -17,18 +17,16 @@ export const AdsContext = createContext({
     setCountdown: () => {},
     generateIsReady: false,
     setGenerateIsReady: () => {},
-    compressIsReady: false,
-    setCompressIsReady: () => {},
     userId: null,
     setUserId: () => {},
     displayName: '',
-    setDisplayName: () => {}
+    setDisplayName: () => {},
 });
 
 export const GenerateContext = createContext({
     prompt: '',
-    setPrompt: () => {}  
-})
+    setPrompt: () => {},  
+});
 
 export const useAdsContext = () => useContext(AdsContext);
-export const useGenerateContext = () => useContext(GenerateContext)
+export const useGenerateContext = () => useContext(GenerateContext);

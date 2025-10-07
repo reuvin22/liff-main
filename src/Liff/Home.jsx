@@ -179,20 +179,19 @@ const Home = () => {
     }
 
     const handleOptionClick = (value) => {
-        const trimmedValue = value.trim();
-        const abilityDescriptionIndex = Constants.Options.findIndex(opt => opt.trim() === trimmedValue)
-    
-        setSelectedOption(trimmedValue);
-        setDropdownOpen(false);
-        setShowAdditionalDiv(true);
-    
-        setFormData((prevData) => ({
-            ...prevData,
-            [`Question_${progress}`]: trimmedValue,
-            [`Ability_Desc_${progress}`]: Constants.AdditionalDetails?.[abilityDescriptionIndex] || "説明が見つかりません",
-        }));
+      const trimmedValue = value.trim();
+      const abilityDescriptionIndex = Constants.Options.findIndex(opt => opt.trim() === trimmedValue);
+
+      setSelectedOption(trimmedValue);
+      setShowAdditionalDiv(true);
+
+      setFormData((prevData) => ({
+        ...prevData,
+        [`Question_${progress}`]: trimmedValue,
+        [`Ability_Desc_${progress}`]: Constants.AdditionalDetails?.[abilityDescriptionIndex] || "説明が見つかりません",
+      }));
     };
-  
+      
       const handleInputLimit = (event) => {
         const inputValue = event.target.value.slice(0, maxInput);
         setCurrentInput(inputValue);

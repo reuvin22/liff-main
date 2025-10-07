@@ -1,69 +1,16 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import { useAdsContext } from "../utils/context";
+import LoadingImage from "../assets/loading.png";
 
 const Loading = ({ generate, prompt }) => {
-    const [ads, setAds] = useState(null);
     const context = useAdsContext();
-    const [generated, setGenerated] = useState(false)
-    const apiUrl = import.meta.env.VITE_API_URL;
-    const fetchAds = async () => {
-        if(context.isClicked === 'Generate'){
-            context.setGenerateIsReady(false)
-        }
-        try {
-            const response = await axios.get(`${apiUrl}firebase-files`);
-            setAds(response.data);
-    
-            context.setAdsPlaying(true);
-            context.setCountdown(15);
 
-            const newInterval = setInterval(() => {
-                context.setCountdown((prev) => {
-                    if (prev <= 1) {
-                        clearInterval(newInterval);
-    
-                        if (generate || prompt) {
-                            context.setIsReady(true);
-                        }
-    
-                        setGenerated(!generated)
-                        context.setAdsPlaying(false);
-                        return 0;
-                    }
-                    return prev - 1;
-                });
-            }, 1000);
-            
-            context.setCountInterval(newInterval);
-    
-        } catch (error) {
-            console.error("❌ Error fetching ads:", error);
-        }
-    };
-
-    useEffect(() => {
-        fetchAds();
-        
-        return () => {
-            context.setCountdown(0)
-        };
-    }, [generated]);
-    
-
-    useEffect(() => {
-        if(context.countdown === 0 && generate){
-            context.setIsReady(true)
-        }
-    }, [context.countdown, generate])
-
-    useEffect(() => {
-        if(context.countdown === 0 && generate && context.isClicked === 'Generate'){
-            context.setGenerateIsReady(true)
-        }else if(context.countdown === 0 && prompt && context.isClicked === 'Compress'){
-            context.setCompressIsReady(true)
-        }
-    }, [context.countdown, generate, prompt])
+    if (generate !== '') {
+        context.setGenerateIsReady(true);
+    } else if (prompt !== '') {
+        context.setIsCompressReady(true);
+    } else {
+        console.log('BOTH OUTPUT ARE NOT YET READY');
+    }
 
     return (
         <div className="min-h-screen bg-blue-100 flex justify-center items-center">
@@ -73,10 +20,10 @@ const Loading = ({ generate, prompt }) => {
                 </div>
 
                 <div className="min-h-72 border-2 border-black bg-white mb-2 overflow-auto overflow-x-hidden">
-                    {ads?.url ? (
+                    {generate === '' || prompt === '' ? (
                         <img
-                            src={ads.url}
-                            alt={ads.name || "Ad Image"}
+                            src={LoadingImage}
+                            alt="Loading"
                             className="w-full min-h-72 max-h-72"
                         />
                     ) : (
