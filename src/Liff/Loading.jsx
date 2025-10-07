@@ -6,8 +6,10 @@ const Loading = ({ generate, prompt }) => {
 
     if (generate !== '') {
         context.setGenerateIsReady(true);
+        context.setIsLoading(false)
     } else if (prompt !== '') {
         context.setIsCompressReady(true);
+        context.setIsLoading(false)
     } else {
         console.log('BOTH OUTPUT ARE NOT YET READY');
     }
