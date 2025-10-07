@@ -65,7 +65,6 @@ const Loading = ({ generate, prompt }) => {
         }
     }, [context.countdown, generate, prompt])
 
-    // console.log(context.countdown)
     return (
         <div className="min-h-screen bg-blue-100 flex justify-center items-center">
             <div className="bg-white w-80 rounded-lg shadow-lg p-4 text-center">
@@ -75,20 +74,11 @@ const Loading = ({ generate, prompt }) => {
 
                 <div className="min-h-72 border-2 border-black bg-white mb-2 overflow-auto overflow-x-hidden">
                     {ads?.url ? (
-                        ads.mime_type?.includes("image") ? (
-                            <img
-                                src={ads.url}
-                                alt={ads.name || "Ad Image"}
-                                className="w-full min-h-72 max-h-72"
-                            />
-                        ) : (
-                            <iframe
-                                src={ads.url}
-                                className="w-full min-h-72 max-h-72"
-                                allow="autoplay"
-                                style={{ pointerEvents: "none" }}
-                            ></iframe>
-                        )
+                        <img
+                            src={ads.url}
+                            alt={ads.name || "Ad Image"}
+                            className="w-full min-h-72 max-h-72"
+                        />
                     ) : (
                         <p>お待ちください...</p>
                     )}
