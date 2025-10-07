@@ -10,12 +10,12 @@ const Loading = ({ generate, prompt }) => {
       context.setGenerateIsReady(true);
       context.setIsLoading(false);
     } else if (prompt !== "") {
-      context.setCompressIsReady(true);
+      context.setIsCompressReady(true); // ✅ fixed here
       context.setIsLoading(false);
     } else {
       console.log("BOTH OUTPUT ARE NOT YET READY");
     }
-  }, [generate, prompt]); // ✅ triggers only when these change
+  }, [generate, prompt]);
 
   return (
     <div className="min-h-screen bg-blue-100 flex justify-center items-center">
