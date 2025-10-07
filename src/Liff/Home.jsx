@@ -217,8 +217,7 @@ const Home = () => {
 
         if(progress === 11){
             handleSubmit()
-            context.setIsLoading(true)
-            console.log('THIS IS LOADING: ', context.isLoading)
+            context.setIsReady(true)
             return;
         }
         
@@ -230,6 +229,7 @@ const Home = () => {
         }
 
         setShowAdvice(false)
+        console.log('THIS IS LOADING: ', context.isReady)
     };    
       
     const prevQuestion = () => {
