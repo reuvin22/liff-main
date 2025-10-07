@@ -217,7 +217,8 @@ const Home = () => {
 
         if(progress === 11){
             handleSubmit()
-            context.isLoading(true)
+            context.setIsLoading(true)
+            console.log('THIS IS LOADING: ', context.isLoading)
             return;
         }
         
