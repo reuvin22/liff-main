@@ -28,7 +28,7 @@ function Compress({prompt, userId}) {
     useEffect(() => {
         const platform = async () => {
             try {
-                await import(liffUrl);
+                await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js');
                       
                 const liff = window.liff;
                 if (liff) {

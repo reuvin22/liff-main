@@ -72,7 +72,7 @@ const Home = () => {
     useEffect(() => {
       const loadLIFF = async () => {
         try {
-          await import(liffUrl)
+          await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js')
             .then(() => {
               const liff = window.liff;
   

@@ -17,7 +17,6 @@ function Generate({prompt, userId}) {
     const [isWeb, setIsWeb] = useState("")
     const apiUrl = import.meta.env.VITE_API_URL;
     const liffId = import.meta.env.VITE_APP_LIFF_ID;
-    const liffUrl = import.meta.env.APP_URL;
     useEffect(() => {
         if(!prompt){
             handleGenerate()
@@ -29,7 +28,7 @@ function Generate({prompt, userId}) {
     useEffect(() => {
         const platform = async() => {
             try {
-                await import(liffUrl);
+                await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js');
                 
                 const liff = window.liff;
                 if (liff) {
