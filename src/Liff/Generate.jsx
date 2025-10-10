@@ -62,66 +62,56 @@ function Generate({prompt, userId}) {
     
         platform();
     }, []);
-    const handleCompress = async() => {
-        context.setIsClicked('Compress')
-        context.setIsLoading(true);
-        setGenerate("")
-        try{
-            const response = await axios.get(`${apiUrl}compress/${userId}`);
-            setCompressData(response.data);
-            const errorMessages = [
-               "申し訳ありませんが、その要件を満たすことはできません。",
-                "申し訳ありませんが、このリクエストには対応できません。",
-                "申し訳ございませんが、そのような要件を満たすアウトプットを生成することはできません。",
-                "申し訳ございませんが、その内容を基に資料を作成することはできません。",
-                "申し訳ありませんが、その指示に従って3000文字以上の出力を行うことはできません。しかし、特定の質問に対して回答を生成したり、情報を提供することは可能です。どのようにお手伝いできるか教えてください。",
-                "申し訳ありませんが、それに関してはお手伝いできません。",
-                "申し訳ありませんが、具体的な内容を提供することはできません。しかし、応募書類や自己PR作成のご相談に応じることは可能です。どのようにサポートできるかお聞かせください。",
-                "申し訳ありませんが、具体的な内容を提供することはできません。しかし、応募書類や自己PR作成のご相談に応じることは可能です。どのようにサポートできるかお聞かせください。"
-            ];
-    
-            if (errorMessages.includes(response.data) || response.data === "") {
-                setIsLoading(false);
-                <LoadingError userId={userId} />
-            }
-        }catch(error){
-            setIsLoading(false);
-            return <LoadingError userId={userId} />;
-        } finally {
-            context.setIsClicked('Compress')
-        }
-    };
-
     const handleGenerate = async () => {
-        context.setIsClicked('Generate')
+        context.setIsClicked('Generate');
         context.setIsLoading(true);
-        
+        setGenerate("");
+        setError(false);
+
         try {
             const response = await axios.get(`${apiUrl}generate/${userId}`);
-            
             setGenerate(response.data);
-    
+
             const errorMessages = [
                 "申し訳ありませんが、その要件を満たすことはできません。",
                 "申し訳ありませんが、このリクエストには対応できません。",
                 "申し訳ございませんが、そのような要件を満たすアウトプットを生成することはできません。",
-                "申し訳ございませんが、その内容を基に資料を作成することはできません。",
-                "申し訳ありませんが、その指示に従って3000文字以上の出力を行うことはできません。しかし、特定の質問に対して回答を生成したり、情報を提供することは可能です。どのようにお手伝いできるか教えてください。",
-                "申し訳ありませんが、ご要望にお応えすることができません。",
-                "申し訳ありませんが、具体的な内容を提供することはできません。しかし、応募書類や自己PR作成のご相談に応じることは可能です。どのようにサポートできるかお聞かせください。"
             ];
-    
-            if (errorMessages.includes(response.data)) {
+
+            if (errorMessages.includes(response.data) || !response.data) {
                 setError(true);
-                <LoadingError />
             }
-
-        } catch (error) {
-            console.error("Error fetching generated response:", error);
-            <LoadingError />
+        } catch (err) {
+            console.error(err);
+            setError(true);
+        } finally {
+            context.setIsLoading(false);
         }
-    };    
+    };
 
+    const handleCompress = async () => {
+        context.setIsClicked('Compress');
+        context.setIsLoading(true);
+        setCompressData("");
+
+        try {
+            const response = await axios.get(`${apiUrl}compress/${userId}`);
+            setCompressData(response.data);
+
+            const errorMessages = [
+                "申し訳ありませんが、その要件を満たすことはできません。",
+            ];
+
+            if (errorMessages.includes(response.data) || !response.data) {
+                setError(true);
+            }
+        } catch (err) {
+            console.error(err);
+            setError(true);
+        } finally {
+            context.setIsLoading(false);
+        }
+    };
     useEffect(() => {
         if (context.generateIsReady === true && context.countdown === 0 && context.isClicked === 'Generate') {
             context.setIsLoading(false)
