@@ -94,6 +94,7 @@ function Compress({prompt, userId}) {
             userId={userId}
         />
     }
+    
     if(context.isLoading){
         return <Loading generate={generate}/>
     }

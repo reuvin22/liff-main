@@ -60,8 +60,10 @@ function Generate({prompt, userId}) {
     const handleCompress = async() => {
         context.setIsClicked('Compress')
         context.setIsLoading(true);
-        setGenerate("")
         setCompressData("")
+        setGenerate("")
+        console.log('COMPRESS: ', compressData)
+        console.log('Generate: ', generate)
         try{
             const response = await axios.get(`${apiUrl}compress/${userId}`);
             setCompressData(response.data);
@@ -93,6 +95,8 @@ function Generate({prompt, userId}) {
         context.setIsLoading(true);
         setGenerate("")
         setCompressData("")
+        console.log('COMPRESS: ', compressData)
+        console.log('Generate: ', generate)
         try {
             const response = await axios.get(`${apiUrl}generate/${userId}`);
             
@@ -133,7 +137,7 @@ function Generate({prompt, userId}) {
     }
 
     if(context.isLoading){
-        return <Loading generate={generate} userId={userId}/>;
+        return <Loading generate={generate} userId={userId} prompt={compressData}/>;
     }
 
   const handleCopy = () => {
