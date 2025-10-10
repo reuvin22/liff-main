@@ -4,19 +4,24 @@ import Loading from './Loading';
 import Compress from './Compress';
 import Home from './Home';
 import LoadingError from './LoadingError';
-import { useAdsContext } from '../utils/context';
+import { useAdsContext, useGenerateContext } from '../utils/context';
 function Generate({prompt, userId}) {
     const [copyStatus, setCopyStatus] = useState("");
     const [generate, setGenerate] = useState("");
+    const [generatePage, setIsGeneratePage] = useState(false);
+    const [isCompress, setIsCompress] = useState(false);
+    const [main, setMain] = useState(true);
+    const [error, setError] = useState(false);
     const [compressData, setCompressData] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [home, setHome] = useState(false)
     const [copy, setCopy] = useState(false)
     const context = useAdsContext()
+    const generateContext = useGenerateContext()
     const [shouldRenderCompress, setShouldRenderCompress] = useState(false)
+    const [stopLoading, setStopLoading] = useState(false)
     const [isWeb, setIsWeb] = useState("")
     const apiUrl = import.meta.env.VITE_API_URL;
-    const liffId = import.meta.env.VITE_APP_LIFF_ID;
     useEffect(() => {
         if(!prompt){
             handleGenerate()
@@ -33,7 +38,7 @@ function Generate({prompt, userId}) {
                 const liff = window.liff;
                 if (liff) {
                     await liff.init({ 
-                        liffId: liffId 
+                        liffId: "2006819941-jWGNQ53X" 
                     });
     
                     const os = liff.getOS();
@@ -60,10 +65,7 @@ function Generate({prompt, userId}) {
     const handleCompress = async() => {
         context.setIsClicked('Compress')
         context.setIsLoading(true);
-        setCompressData("")
         setGenerate("")
-        console.log('COMPRESS: ', compressData)
-        console.log('Generate: ', generate)
         try{
             const response = await axios.get(`${apiUrl}compress/${userId}`);
             setCompressData(response.data);
@@ -93,10 +95,7 @@ function Generate({prompt, userId}) {
     const handleGenerate = async () => {
         context.setIsClicked('Generate')
         context.setIsLoading(true);
-        setGenerate("")
-        setCompressData("")
-        console.log('COMPRESS: ', compressData)
-        console.log('Generate: ', generate)
+        
         try {
             const response = await axios.get(`${apiUrl}generate/${userId}`);
             
