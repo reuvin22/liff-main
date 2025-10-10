@@ -60,7 +60,6 @@ function Generate({prompt, userId}) {
     const handleCompress = async() => {
         context.setIsClicked('Compress')
         context.setIsLoading(true);
-        setCompressData("")
         setGenerate("")
         try{
             const response = await axios.get(`${apiUrl}compress/${userId}`);
