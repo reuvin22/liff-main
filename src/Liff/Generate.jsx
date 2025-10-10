@@ -132,7 +132,7 @@ function Generate({prompt, userId}) {
     }
 
     if(context.isLoading){
-        return <Loading generate={generate} userId={userId} prompt={compressData}/>;
+        return <Loading generate={generate} userId={userId}/>;
     }
 
   const handleCopy = () => {
