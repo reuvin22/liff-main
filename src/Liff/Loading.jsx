@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAdsContext } from "../utils/context";
+import LoadingImage from "../assets/loading.png";
 
 const Loading = ({ generate, prompt }) => {
     const [ads, setAds] = useState(null);
