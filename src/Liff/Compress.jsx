@@ -13,6 +13,8 @@ function Compress({prompt, userId}) {
     const [copy, setCopy] = useState(false)
     const context = useAdsContext()
     const apiUrl = import.meta.env.VITE_API_URL;
+    const liffId = import.meta.env.VITE_APP_LIFF_ID;
+    const liffUrl = import.meta.env.APP_URL;
     const [shouldRenderGenerate, setShouldRenderGenerate] = useState(false)
     const [isWeb, setIsWeb] = useState(false)
     function backToHome() {
@@ -26,12 +28,12 @@ function Compress({prompt, userId}) {
     useEffect(() => {
         const platform = async () => {
             try {
-                await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js');
+                await import(liffUrl);
                       
                 const liff = window.liff;
                 if (liff) {
                     await liff.init({ 
-                        liffId: "2006819941-jWGNQ53X" 
+                        liffId: liffId
                     });
       
                 const isInLineApp = liff.isInClient();

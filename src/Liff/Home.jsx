@@ -24,7 +24,7 @@ const Home = () => {
     const context = useAdsContext();
     const liffId = import.meta.env.VITE_APP_LIFF_ID;
     const apiUrl = import.meta.env.VITE_API_URL;
-
+    const liffUrl = import.meta.env.APP_URL;
     const maxInput =
     progress === 3 || progress === 4 || progress === 5
       ? 100
@@ -72,7 +72,7 @@ const Home = () => {
     useEffect(() => {
       const loadLIFF = async () => {
         try {
-          await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js')
+          await import(liffUrl)
             .then(() => {
               const liff = window.liff;
   

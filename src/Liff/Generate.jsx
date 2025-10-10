@@ -4,24 +4,20 @@ import Loading from './Loading';
 import Compress from './Compress';
 import Home from './Home';
 import LoadingError from './LoadingError';
-import { useAdsContext, useGenerateContext } from '../utils/context';
+import { useAdsContext } from '../utils/context';
 function Generate({prompt, userId}) {
     const [copyStatus, setCopyStatus] = useState("");
     const [generate, setGenerate] = useState("");
-    const [generatePage, setIsGeneratePage] = useState(false);
-    const [isCompress, setIsCompress] = useState(false);
-    const [main, setMain] = useState(true);
-    const [error, setError] = useState(false);
     const [compressData, setCompressData] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [home, setHome] = useState(false)
     const [copy, setCopy] = useState(false)
     const context = useAdsContext()
-    const generateContext = useGenerateContext()
     const [shouldRenderCompress, setShouldRenderCompress] = useState(false)
-    const [stopLoading, setStopLoading] = useState(false)
     const [isWeb, setIsWeb] = useState("")
     const apiUrl = import.meta.env.VITE_API_URL;
+    const liffId = import.meta.env.VITE_APP_LIFF_ID;
+    const liffUrl = import.meta.env.APP_URL;
     useEffect(() => {
         if(!prompt){
             handleGenerate()
@@ -33,12 +29,12 @@ function Generate({prompt, userId}) {
     useEffect(() => {
         const platform = async() => {
             try {
-                await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js');
+                await import(liffUrl);
                 
                 const liff = window.liff;
                 if (liff) {
                     await liff.init({ 
-                        liffId: "2006819941-jWGNQ53X" 
+                        liffId: liffId 
                     });
     
                     const os = liff.getOS();
@@ -62,56 +58,66 @@ function Generate({prompt, userId}) {
     
         platform();
     }, []);
-    const handleGenerate = async () => {
-        context.setIsClicked('Generate');
+    const handleCompress = async() => {
+        context.setIsClicked('Compress')
         context.setIsLoading(true);
-        setGenerate("");
-        setError(false);
+        setGenerate("")
+        try{
+            const response = await axios.get(`${apiUrl}compress/${userId}`);
+            setCompressData(response.data);
+            const errorMessages = [
+               "申し訳ありませんが、その要件を満たすことはできません。",
+                "申し訳ありませんが、このリクエストには対応できません。",
+                "申し訳ございませんが、そのような要件を満たすアウトプットを生成することはできません。",
+                "申し訳ございませんが、その内容を基に資料を作成することはできません。",
+                "申し訳ありませんが、その指示に従って3000文字以上の出力を行うことはできません。しかし、特定の質問に対して回答を生成したり、情報を提供することは可能です。どのようにお手伝いできるか教えてください。",
+                "申し訳ありませんが、それに関してはお手伝いできません。",
+                "申し訳ありませんが、具体的な内容を提供することはできません。しかし、応募書類や自己PR作成のご相談に応じることは可能です。どのようにサポートできるかお聞かせください。",
+                "申し訳ありませんが、具体的な内容を提供することはできません。しかし、応募書類や自己PR作成のご相談に応じることは可能です。どのようにサポートできるかお聞かせください。"
+            ];
+    
+            if (errorMessages.includes(response.data) || response.data === "") {
+                setIsLoading(false);
+                <LoadingError userId={userId} />
+            }
+        }catch(error){
+            setIsLoading(false);
+            return <LoadingError userId={userId} />;
+        } finally {
+            context.setIsClicked('Compress')
+        }
+    };
 
+    const handleGenerate = async () => {
+        context.setIsClicked('Generate')
+        context.setIsLoading(true);
+        
         try {
             const response = await axios.get(`${apiUrl}generate/${userId}`);
+            
             setGenerate(response.data);
-
+    
             const errorMessages = [
                 "申し訳ありませんが、その要件を満たすことはできません。",
                 "申し訳ありませんが、このリクエストには対応できません。",
                 "申し訳ございませんが、そのような要件を満たすアウトプットを生成することはできません。",
+                "申し訳ございませんが、その内容を基に資料を作成することはできません。",
+                "申し訳ありませんが、その指示に従って3000文字以上の出力を行うことはできません。しかし、特定の質問に対して回答を生成したり、情報を提供することは可能です。どのようにお手伝いできるか教えてください。",
+                "申し訳ありませんが、ご要望にお応えすることができません。",
+                "申し訳ありませんが、具体的な内容を提供することはできません。しかし、応募書類や自己PR作成のご相談に応じることは可能です。どのようにサポートできるかお聞かせください。"
             ];
-
-            if (errorMessages.includes(response.data) || !response.data) {
+    
+            if (errorMessages.includes(response.data)) {
                 setError(true);
+                <LoadingError />
             }
-        } catch (err) {
-            console.error(err);
-            setError(true);
-        } finally {
-            context.setIsLoading(false);
+
+        } catch (error) {
+            console.error("Error fetching generated response:", error);
+            <LoadingError />
         }
-    };
+    };    
 
-    const handleCompress = async () => {
-        context.setIsClicked('Compress');
-        context.setIsLoading(true);
-        setCompressData("");
-
-        try {
-            const response = await axios.get(`${apiUrl}compress/${userId}`);
-            setCompressData(response.data);
-
-            const errorMessages = [
-                "申し訳ありませんが、その要件を満たすことはできません。",
-            ];
-
-            if (errorMessages.includes(response.data) || !response.data) {
-                setError(true);
-            }
-        } catch (err) {
-            console.error(err);
-            setError(true);
-        } finally {
-            context.setIsLoading(false);
-        }
-    };
     useEffect(() => {
         if (context.generateIsReady === true && context.countdown === 0 && context.isClicked === 'Generate') {
             context.setIsLoading(false)
