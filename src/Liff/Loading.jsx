@@ -5,16 +5,19 @@ import LoadingImage from "../assets/loading.png";
 const Loading = ({ generate, prompt }) => {
   const context = useAdsContext();
 
+  const isLoading = generate === "" && prompt === "";
+
   useEffect(() => {
     if (generate !== "") {
       context.setGenerateIsReady(true);
-      context.setIsLoading(false);
-    } else if (prompt !== "") {
-      context.setIsCompressReady(true); // ✅ fixed here
-      context.setIsLoading(false);
-    } else {
-      console.log("BOTH OUTPUT ARE NOT YET READY");
     }
+
+    if (prompt !== "") {
+      context.setIsCompressReady(true);
+    }
+
+    // Only set loading if both are not ready
+    context.setIsLoading(isLoading);
   }, [generate, prompt]);
 
   return (
@@ -25,7 +28,7 @@ const Loading = ({ generate, prompt }) => {
         </div>
 
         <div className="min-h-72 border-2 border-black bg-white mb-2 overflow-auto overflow-x-hidden">
-          {generate === "" && prompt === "" ? (
+          {isLoading ? (
             <img
               src={LoadingImage}
               alt="Loading"
