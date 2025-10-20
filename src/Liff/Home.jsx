@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ArrowB from "../assets/arrow.png";
 import axios from "axios";
-import liff from "@line/liff";
+import Liff from "@line/liff";
 import Loading from "./Loading";
 import LoadingError from "./LoadingError";
 import Generate from "./Generate";
@@ -72,42 +72,27 @@ const Home = () => {
     useEffect(() => {
       const loadLIFF = async () => {
         try {
-          if (!liff) {
-            console.error("LIFF SDKが読み込まれていません。");
-            alert("LIFF SDKが正しく読み込まれていません。");
+          await Liff.init({ liffId: '2006819941-rM1Q8Lm2' });
+
+          if (!Liff.isLoggedIn()) {
+            Liff.login();
             return;
           }
 
-          console.log("Initializing LIFF with ID:", liffId);
-          await liff.init({ liffId: "2006819941-rM1Q8Lm2" });
-
-          if (!liff.isLoggedIn()) {
-            console.log("User not logged in — redirecting to LINE login...");
-            liff.login();
-            return;
-          }
-
-          const profile = await liff.getProfile();
-          console.log("LIFF profile:", profile);
-
+          const profile = await Liff.getProfile();
           setUserId(profile.userId);
-          setFormData((prevData) => ({
+          setFormData(prevData => ({
             ...prevData,
             userId: profile.userId,
             displayName: profile.displayName,
           }));
         } catch (err) {
-          console.error("LIFFの初期化中にエラーが発生しました:", err);
-          alert(
-            "LIFF SDKの初期化中にエラーが発生しました。しばらくしてからもう一度お試しください。"
-          );
+          console.error('LIFF initialization error:', err);
+          alert('LIFF SDK initialization failed. Please try again later.');
         }
       };
 
-      loadLIFF().catch((error) => {
-        console.error("Unexpected LIFF error:", error);
-        alert("予期しないエラーが発生しました。もう一度お試しください。");
-      });
+      loadLIFF();
     }, []);
   
     useEffect(() => {
