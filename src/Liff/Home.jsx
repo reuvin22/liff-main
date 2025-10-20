@@ -72,54 +72,42 @@ const Home = () => {
     useEffect(() => {
       const loadLIFF = async () => {
         try {
-          await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js')
-            .then(() => {
-              const liff = window.liff;
-  
-              if (liff) {
-                liff.init({
-                  liffId: '2006819941-rM1Q8Lm2',
-                })
-                .then(() => {
-                  if (!liff.isLoggedIn() && questionList.length === 0) {
-                    return liff.login()
-                  }else {
-                    liff.getProfile()
-                      .then((profile) => {
-  
-                        setUserId(profile.userId);
-                        setFormData(prevData => ({
-                          ...prevData,
-                          userId: profile.userId,
-                          displayName: profile.displayName
-                        }));
-                      })
-                      .catch((err) => {
-                        console.error("ユーザー プロファイルの取得中にエラーが発生しました:", err);
-                        alert("ユーザー プロファイルの取得中にエラーが発生しました。もう一度お試しください。");
-                      });
-                  }
-                })
-                .catch((err) => {
-                  console.error("LIFFの初期化中にエラーが発生しました:", err);
-                  alert("LIFF SDKの初期化中にエラーが発生しました。しばらくしてからもう一度お試しください。");
-                });
-              } else {
-                console.error("ウィンドウオブジェクトにLIFF SDKが見つかりません。");
-                alert("LIFF SDKが正しく読み込まれていません。");
-              }
-            })
-            .catch((error) => {
-              console.error("Error loading LIFF SDK:", error);
-              alert("LIFF SDK の読み込みに失敗しました。しばらくしてからもう一度お試しください。");
-            });
-        } catch (error) {
-          console.error("Unexpected error:", error);
-          alert("予期しないエラーが発生しました。もう一度お試しください。");
+          if (!liff) {
+            console.error("LIFF SDKが読み込まれていません。");
+            alert("LIFF SDKが正しく読み込まれていません。");
+            return;
+          }
+
+          console.log("Initializing LIFF with ID:", liffId);
+          await liff.init({ liffId: "2006819941-rM1Q8Lm2" });
+
+          if (!liff.isLoggedIn()) {
+            console.log("User not logged in — redirecting to LINE login...");
+            liff.login();
+            return;
+          }
+
+          const profile = await liff.getProfile();
+          console.log("LIFF profile:", profile);
+
+          setUserId(profile.userId);
+          setFormData((prevData) => ({
+            ...prevData,
+            userId: profile.userId,
+            displayName: profile.displayName,
+          }));
+        } catch (err) {
+          console.error("LIFFの初期化中にエラーが発生しました:", err);
+          alert(
+            "LIFF SDKの初期化中にエラーが発生しました。しばらくしてからもう一度お試しください。"
+          );
         }
       };
-  
-      loadLIFF();
+
+      loadLIFF().catch((error) => {
+        console.error("Unexpected LIFF error:", error);
+        alert("予期しないエラーが発生しました。もう一度お試しください。");
+      });
     }, []);
   
     useEffect(() => {
