@@ -78,7 +78,7 @@ const Home = () => {
   
               if (liff) {
                 liff.init({
-                  liffId: liffId,
+                  liffId: '2006819941-rM1Q8Lm2',
                 })
                 .then(() => {
                   if (!liff.isLoggedIn() && questionList.length === 0) {
