@@ -53,65 +53,47 @@ const Home = () => {
     const [userId, setUserId] = useState('');
 
     useEffect(() => {
-      const loadLIFF = async () => {
+      const initializeLIFF = async () => {
         try {
-          await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js')
-            .then(() => {
-              const liff = window.liff;
-  
-              if (liff) {
-                liff.init({
-                  liffId: '2006819941-rM1Q8Lm2',
-                })
-                .then(() => {
-                  if (!liff.isLoggedIn() && questionList.length === 0) {
-                    return liff.login()
-                  }else {
-                    liff.getProfile()
-                      .then((profile) => {
-  
-                        setUserId(profile.userId);
-                        setFormData(prevData => ({
-                          ...prevData,
-                          userId: profile.userId,
-                          displayName: profile.displayName
-                        }));
-                      })
-                      .catch((err) => {
-                        console.error("ユーザー プロファイルの取得中にエラーが発生しました:", err);
-                        alert("ユーザー プロファイルの取得中にエラーが発生しました。もう一度お試しください。");
-                      });
-                  }
-                })
-                .catch((err) => {
-                  console.error("LIFFの初期化中にエラーが発生しました:", err);
-                  alert("LIFF SDKの初期化中にエラーが発生しました。しばらくしてからもう一度お試しください。");
-                });
-              } else {
-                console.error("ウィンドウオブジェクトにLIFF SDKが見つかりません。");
-                alert("LIFF SDKが正しく読み込まれていません。");
-              }
-            })
-            .catch((error) => {
-              console.error("Error loading LIFF SDK:", error);
-              alert("LIFF SDK の読み込みに失敗しました。しばらくしてからもう一度お試しください。");
-            });
+          await liff.init({ liffId });
+
+          if (!liff.isLoggedIn()) {
+            liff.login();
+            return;
+          }
+
+          const profile = await liff.getProfile();
+          setUserId(profile.userId);
+          setFormData((prev) => ({
+            ...prev,
+            userId: profile.userId,
+            displayName: profile.displayName,
+          }));
         } catch (error) {
-          console.error("Unexpected error:", error);
-          alert("予期しないエラーが発生しました。もう一度お試しください。");
+          console.error("LIFF initialization failed:", error);
+          alert("LIFFの初期化中にエラーが発生しました。");
+          context.setIsLoading(false);
         }
       };
-  
-      loadLIFF();
+
+      initializeLIFF();
     }, []);
-  
+
     useEffect(() => {
-      if (userId) {
-        setFormData(prevData => ({
-          ...prevData,
-          userId: userId,
-        }));
-      }
+      const fetchQuestions = async () => {
+        try {
+          const response = await axios.get(`${apiUrl}questions`);
+          setQuestionList(response.data.questions || []);
+          setWritingAdvice(response.data.writing_advice || []);
+        } catch (error) {
+          console.error("Error fetching questions:", error);
+          alert("質問の取得中にエラーが発生しました。もう一度お試しください。");
+        } finally {
+          context.setIsLoading(false);
+        }
+      };
+
+      if (userId) fetchQuestions();
     }, [userId]);
   
     const handleSubmit = async () => {
