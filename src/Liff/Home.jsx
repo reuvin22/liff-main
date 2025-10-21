@@ -86,7 +86,6 @@ const Home = () => {
           setQuestionList(response.data.questions || []);
           setWritingAdvice(response.data.writing_advice || []);
         } catch (error) {
-          console.error("Error fetching questions:", error);
           alert("質問の取得中にエラーが発生しました。もう一度お試しください。");
         } finally {
           context.setIsLoading(false);
