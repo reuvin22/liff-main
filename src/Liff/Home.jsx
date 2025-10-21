@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ArrowB from "../assets/arrow.png";
 import axios from "axios";
-import Liff from "@line/liff";
+import liff from "@line/liff";
 import Loading from "./Loading";
 import LoadingError from "./LoadingError";
 import Generate from "./Generate";
@@ -21,7 +21,6 @@ const Home = () => {
     const [prompt, setPrompt] = useState("")
     const [questionList, setQuestionList] = useState([])
     const [writingAdvice, setWritingAdvice] = useState([])
-     const [hasInitError, setHasInitError] = useState(false)
     const context = useAdsContext();
     const liffId = import.meta.env.VITE_APP_LIFF_ID;
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -53,52 +52,48 @@ const Home = () => {
     });
     const [userId, setUserId] = useState('');
 
-    // 🔹 Fetch Questions
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await axios.get(`${apiUrl}questions`);
-        setQuestionList(response.data.questions);
-        setWritingAdvice(response.data.writing_advice);
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-        alert("Error fetching questions. Please try again later.");
-        setHasInitError(true); // <-- Mark error so UI stops
-      } finally {
-        context.setIsLoading(false);
-      }
-    };
-
-    fetchQuestions();
-  }, []);
-
-  // 🔹 Initialize LIFF
-  useEffect(() => {
-    const loadLIFF = async () => {
-      try {
-        await Liff.init({ liffId: liffId });
-
-        if (!Liff.isLoggedIn()) {
-          Liff.login();
-          return;
+    useEffect(() => {
+      const fetchQuestions = async () => {
+        try {
+          const response = await axios.get(`${apiUrl}questions`);
+          setQuestionList(response.data.questions);
+          setWritingAdvice(response.data.writing_advice);
+        } catch (error) {
+          console.error("Error fetching questions:", error);
+          alert("Error fetching questions. Please try again later.");
+        } finally {
+          context.setIsLoading(false);
         }
+      };
+  
+      fetchQuestions();
+    }, []);
 
-        const profile = await Liff.getProfile();
-        setUserId(profile.userId);
-        setFormData((prevData) => ({
-          ...prevData,
-          userId: profile.userId,
-          displayName: profile.displayName,
-        }));
-      } catch (err) {
-        console.error("LIFF initialization error:", err);
-        alert("LIFF SDK initialization failed. Please refresh or try again later.");
-        setHasInitError(true); // <-- Mark error so UI stops
-      }
-    };
+    useEffect(() => {
+      const loadLIFF = async () => {
+        try {
+          await liff.init({ liffId: '2006819941-rM1Q8Lm2' });
 
-    loadLIFF();
-  }, []);
+          if (!liff.isLoggedIn()) {
+            liff.login();
+            return;
+          }
+
+          const profile = await liff.getProfile();
+          setUserId(profile.userId);
+          setFormData(prevData => ({
+            ...prevData,
+            userId: profile.userId,
+            displayName: profile.displayName,
+          }));
+        } catch (err) {
+          console.error('LIFF initialization error:', err);
+          alert('LIFF SDK initialization failed. Please try again later.');
+        }
+      };
+
+      loadLIFF();
+    }, []);
   
     useEffect(() => {
       if (userId) {

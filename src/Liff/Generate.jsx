@@ -38,7 +38,7 @@ function Generate({prompt, userId}) {
                 const liff = window.liff;
                 if (liff) {
                     await liff.init({ 
-                        liffId: "2006819941-jWGNQ53X" 
+                        liffId: "2006819941-rM1Q8Lm2" 
                     });
     
                     const os = liff.getOS();
