@@ -121,8 +121,6 @@ const Home = () => {
               console.error("Submission failed: ", postResponse.data);
           }
       } catch (error) {
-          console.error("Error during submission or fetching prompt:", error);
-          alert("リクエストの処理中にエラーが発生しました。");
           <LoadingError />
       }
   };
