@@ -52,6 +52,35 @@ const Home = () => {
     });
     const [userId, setUserId] = useState('');
 
+     useEffect(() => {
+        setPrompt("");
+        context.setIsReady(false);
+        setProgress(1);
+        setCurrentStep(1);
+        setShowAdditionalDiv(false);
+        setSelectedOption("");
+        setShowAdvice(false);
+        setCurrentInput("");
+
+        setFormData({
+            userId: 123,
+            displayName: "DEV",
+            Question_1: "",
+            Ability_Desc_1: "",
+            Question_2: "",
+            Ability_Desc_2: "",
+            Question_3: "",
+            Question_4: "",
+            Question_5: "",
+            Question_6: "",
+            Question_7: "",
+            Question_8: "",
+            Question_9: "",
+            Question_10: "",
+            Question_11: ""
+        });
+    }, []);
+
     useEffect(() => {
       const initializeLIFF = async () => {
         try {
@@ -125,11 +154,13 @@ const Home = () => {
       }
   };
     
-    if(context.isReady === true){
-      return <Generate
-        prompt={prompt}
-        userId={userId}
-      />
+    if (context.isReady === true && prompt.trim() !== "") {
+      return (
+        <Generate
+          prompt={prompt}
+          userId={userId}
+        />
+      );
     }
 
     if (context.isLoading) {

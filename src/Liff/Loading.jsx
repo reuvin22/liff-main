@@ -2,59 +2,38 @@ import { useState, useEffect } from "react";
 import { useAdsContext } from "../utils/context";
 import LoadingImage from "../assets/loading.png";
 
-const Loading = ({ generate, prompt }) => {
+const Loading = ({ generate }) => {
   const context = useAdsContext();
   const [generated, setGenerated] = useState(false);
 
-  const startCountdown = () => {
-    if (context.isClicked === "Generate") {
-      context.setGenerateIsReady(false);
-    }
-
+  useEffect(() => {
     context.setAdsPlaying(true);
     context.setCountdown(15);
 
-    const newInterval = setInterval(() => {
-      context.setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(newInterval);
-
-          if (generate || prompt) {
-            context.setIsReady(true);
-          }
-
-          setGenerated(!generated);
-          context.setAdsPlaying(false);
-          return 0;
-        }
-        return prev - 1;
-      });
+    const id = setInterval(() => {
+      context.setCountdown(prev => Math.max(prev - 1, 0));
     }, 1000);
 
-    context.setCountInterval(newInterval);
-  };
-
-  useEffect(() => {
-    startCountdown();
+    context.setCountInterval(id);
 
     return () => {
-      context.setCountdown(0);
+      clearInterval(id);
+      context.setAdsPlaying(false);
     };
-  }, [generated]);
+  }, []);
 
+  // When countdown finishes
   useEffect(() => {
-    if (context.countdown === 0 && generate) {
-      context.setIsReady(true);
-    }
-  }, [context.countdown, generate]);
+    if (context.countdown !== 0) return;
 
-  useEffect(() => {
-    if (context.countdown === 0 && generate && context.isClicked === "Generate") {
-      context.setGenerateIsReady(true);
-    } else if (context.countdown === 0 && prompt && context.isClicked === "Compress") {
-      context.setCompressIsReady(true);
-    }
-  }, [context.countdown, generate, prompt]);
+    setGenerated(true);
+
+    if (generate) context.setIsReady(true);
+    if (context.isClicked === "Generate") context.setGenerateIsReady(true);
+    if (context.isClicked === "Compress") context.setCompressIsReady(true);
+
+    context.setAdsPlaying(false);
+  }, [context.countdown]);
 
   return (
     <div className="min-h-screen bg-blue-100 flex justify-center items-center">
