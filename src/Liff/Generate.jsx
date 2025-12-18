@@ -42,29 +42,23 @@ function Generate({ prompt, userId }) {
     useEffect(() => {
         const platform = async () => {
             try {
-                await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js');
-                
-                const liff = window.liff;
-                if (liff) {
-                    await liff.init({ 
-                        liffId: "2006819941-rM1Q8Lm2" 
-                    });
-    
-                    const os = liff.getOS();
-                    console.log("Detected by LIFF:", os);
-    
-                    const userAgent = navigator.userAgent.toLowerCase();
-                    const isBrowser = !/line/i.test(userAgent);
-                    console.log("User Agent Check:", isBrowser ? "web" : "line-app");
+                await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js')
 
-                    if(isBrowser){
-                        setIsWeb(true)
-                    }else {
-                        setIsWeb(false)
-                    }
-                }
-            } catch (error) {
-                alert(error)
+                if (!window.liff) return
+
+                await window.liff.init({
+                    liffId: "2006819941-rM1Q8Lm2"
+                })
+
+                await window.liff.ready
+
+                liffRef.current = window.liff
+
+                const ua = navigator.userAgent.toLowerCase()
+                setIsWeb(!/line/i.test(ua))
+
+            } catch (err) {
+                console.error('LIFF init failed:', err)
             }
         }
 
@@ -164,14 +158,26 @@ function Generate({ prompt, userId }) {
         setTimeout(() => setCopy(false), 2000)
     }
 
-    // ✅ FIXED: iOS-safe back to home
     function backToHome() {
         const liff = liffRef.current
 
-        if (liff && liff.isInClient()) {
+        if (!liff) {
+            console.warn('LIFF not initialized')
+            return
+        }
+
+        if (liff.isInClient()) {
             liff.closeWindow()
+            return
+        }
+        
+        if (liff.isLoggedIn()) {
+            liff.openWindow({
+                url: 'https://line.me',
+                external: true
+            })
         } else {
-            console.warn('LIFF is not running in the LINE app.')
+            window.location.href = '/'
         }
     }
 
