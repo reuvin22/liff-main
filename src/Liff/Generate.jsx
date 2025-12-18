@@ -42,19 +42,26 @@ function Generate({ prompt, userId }) {
     useEffect(() => {
         const platform = async () => {
             try {
-                await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js')
+                await import('https://static.line-scdn.net/liff/edge/2.1/sdk.js');
+                
+                const liff = window.liff;
+                if (liff) {
+                    await liff.init({ 
+                        liffId: "2006819941-rM1Q8Lm2" 
+                    });
+    
+                    const os = liff.getOS();
+                    console.log("Detected by LIFF:", os);
+    
+                    const userAgent = navigator.userAgent.toLowerCase();
+                    const isBrowser = !/line/i.test(userAgent);
+                    console.log("User Agent Check:", isBrowser ? "web" : "line-app");
 
-                if (window.liff) {
-                    liffRef.current = window.liff
-
-                    await liffRef.current.init({
-                        liffId: "2006819941-rM1Q8Lm2"
-                    })
-
-                    const userAgent = navigator.userAgent.toLowerCase()
-                    const isBrowser = !/line/i.test(userAgent)
-
-                    setIsWeb(isBrowser)
+                    if(isBrowser){
+                        setIsWeb(true)
+                    }else {
+                        setIsWeb(false)
+                    }
                 }
             } catch (error) {
                 alert(error)
