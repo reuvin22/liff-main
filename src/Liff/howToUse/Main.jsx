@@ -9,26 +9,22 @@ import Image7 from '../../assets/how-to-use/7.png'
 import Image8 from '../../assets/how-to-use/8.png'
 const cardData = [
   {
-    header: "1-1. メニュー",
-    instruction: `Mirabo就活支援AIには3つの
-メニューがあります。`,
+    header: "1-1. ガクチカ",
+    instruction: `志望動機/自己PR生成`,
     image: Image1,
   },
   {
-    header: "1-2. メニュー",
-    instruction: `ガクチカ/志望動機/自己PR生成
-ボタンを押してみましょう。`,
+    header: "1-2. ガクチカ",
+    instruction: `志望動機/自己PR生成`,
     image: Image2,
   },
   {
-    header: `2-1. ガクチカ/志望動機/
-自己PR生成`,
+    header: `2-1. 志望企業`,
     instruction: "質問1、2では自分に当てはまると思うものを選択してください。",
     image: Image3,
   },
   {
-    header: `2-2. ガクチカ/志望動機/
-自己PR生成`,
+    header: `2-2. 志望企業`,
     instruction: "質問3からは自由記述形式です。書き方の助言も参考に。",
     image: Image4,
   },
