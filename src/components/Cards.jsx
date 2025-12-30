@@ -6,7 +6,7 @@ import 'swiper/css/pagination';
 
 function Cards({ cards }) {
   return (
-    <div className="py-8">
+    <div className="px-2">
       <div className="flex justify-center items-center">
         <Swiper
           spaceBetween={10}
@@ -18,15 +18,17 @@ function Cards({ cards }) {
           {cards &&
             cards.map((card, index) => (
               <SwiperSlide key={index}>
-                <div className="w-full sm:w-[90%] md:w-[500px] lg:w-[600px] rounded-lg p-6 flex flex-col justify-center items-center relative">
-                  <div className="mb-4 text-center">
-                    <span className="text-2xl sm:text-3xl font-bold text-[#8a63c0]">
-                      {card.header}
-                    </span>
-                  </div>
+                <div className="w-full h-screen md:w-[500px] lg:w-[600px] rounded-lg flex flex-col justify-center items-center relative">
+                  <div className='px-4'>
+                    <div className="mb-4 text-start">
+                        <span className="text-2xl sm:text-3xl font-bold text-[#8a63c0]">
+                        {card.header}
+                        </span>
+                    </div>
 
-                  <div className="text-base sm:text-xl text-[#333333] tracking-wider mb-4 text-center">
-                    {card.instruction}
+                    <div className="text-base sm:text-xl text-[#333333] tracking-wider mb-4">
+                        {card.instruction}
+                    </div>
                   </div>
 
                   {card.image && (
@@ -34,10 +36,10 @@ function Cards({ cards }) {
                       <img
                         src={card.image}
                         alt="Card"
-                        className="w-4/5 sm:w-3/4 lg:w-2/3 rounded-md mb-4"
+                        className="w-full sm:w-[100%] lg:w-[70%] rounded-md mb-4"
                         style={{
                           maxWidth: '100%',
-                          maxHeight: '50vh',
+                          maxHeight: '60vh',
                           objectFit: 'contain',
                         }}
                       />
