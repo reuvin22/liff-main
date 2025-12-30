@@ -5,6 +5,7 @@ import { AdsContext } from './utils/context'
 import { useState } from 'react';
 import Loading from './Liff/Loading';
 import LoadingScreen from './Liff/LoadingScreen';
+import Main from './Liff/howToUse/Main';
 function App() {
   const [isDone, setIsDone] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +21,7 @@ function App() {
       <AdsContext.Provider value={{ isDone, setIsDone, isLoading, setIsLoading, isReady, setIsReady, adsPlaying, setAdsPlaying, isClicked, setIsClicked, countdown, setCountdown, countInterval, setCountInterval, generateIsReady, setGenerateIsReady, compressIsReady, setCompressIsReady }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/explanation" element={<Carousel />} />
+          <Route path="/explanation" element={<Main />} />
         </Routes>
       </AdsContext.Provider>
     </>
