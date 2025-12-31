@@ -21,13 +21,9 @@ function Cards({ cards }) {
                 <div className="w-full h-screen md:w-[500px] lg:w-[600px] rounded-lg flex flex-col justify-center items-center relative">
                   <div className='px-4'>
                     <div className="mb-4 text-start">
-                        <span className="text-2xl sm:text-3xl font-bold text-[#8a63c0]">
+                        <span className="text-2xl font-bold text-[#8a63c0] text-center">
                         {card.header}
                         </span>
-                    </div>
-
-                    <div className="text-base sm:text-xl text-[#333333] tracking-wider mb-4">
-                        {card.instruction}
                     </div>
                   </div>
 

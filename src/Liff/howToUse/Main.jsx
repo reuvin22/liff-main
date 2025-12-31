@@ -6,23 +6,23 @@ import Image4 from '../../assets/how-to-use/4.jpg'
 import Image5 from '../../assets/how-to-use/5.jpg'
 const cardData = [
   {
-    header: "1-1 ガクチカ/志望動機/自己PR生成",
+    header: "1/5. 能力ボタンを選択！",
     image: Image1,
   },
   {
-    header: "1-2 ガクチカ/志望動機/自己PR生成",
+    header: "2/5. 助言が見えるよ！",
     image: Image2,
   },
   {
-    header: `1-3 ガクチカ/志望動機/自己PR生成`,
+    header: `3/5.助言が見えるよ！`,
     image: Image3,
   },
   {
-    header: `2-1. 志望企業`,
+    header: `4/5.志望企業入力！`,
     image: Image4,
   },
     {
-    header: `2-2. 志望企業`,
+    header: `5/5.URLもね！`,
     image: Image5,
   }
 ];
