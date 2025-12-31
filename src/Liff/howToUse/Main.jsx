@@ -1,9 +1,9 @@
 import Cards from '../../components/Cards'
-import Image1 from '../../assets/how-to-use/1.png'
-import Image2 from '../../assets/how-to-use/2.png'
-import Image3 from '../../assets/how-to-use/3.png'
-import Image4 from '../../assets/how-to-use/4.png'
-import Image5 from '../../assets/how-to-use/5.png'
+import Image1 from '../../assets/how-to-use/1.jpg'
+import Image2 from '../../assets/how-to-use/2.jpg'
+import Image3 from '../../assets/how-to-use/3.jpg'
+import Image4 from '../../assets/how-to-use/4.jpg'
+import Image5 from '../../assets/how-to-use/5.jpg'
 const cardData = [
   {
     header: "1-1 ガクチカ",
