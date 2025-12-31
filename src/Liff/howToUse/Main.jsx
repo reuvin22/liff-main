@@ -4,9 +4,6 @@ import Image2 from '../../assets/how-to-use/2.png'
 import Image3 from '../../assets/how-to-use/3.png'
 import Image4 from '../../assets/how-to-use/4.png'
 import Image5 from '../../assets/how-to-use/5.png'
-import Image6 from '../../assets/how-to-use/6.png'
-import Image7 from '../../assets/how-to-use/7.png'
-import Image8 from '../../assets/how-to-use/8.png'
 const cardData = [
   {
     header: "1-1 ガクチカ",
