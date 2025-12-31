@@ -6,8 +6,7 @@ import Image4 from '../../assets/how-to-use/4.jpg'
 import Image5 from '../../assets/how-to-use/5.jpg'
 const cardData = [
   {
-    header: "1-1 ガクチカ",
-    instruction: `志望動機/自己PR生成`,
+    header: "1-1 ガクチカ/志望動機/自己PR生成",
     image: Image1,
   },
   {
