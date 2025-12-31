@@ -11,13 +11,11 @@ const cardData = [
     image: Image1,
   },
   {
-    header: "1-2. ガクチカ",
-    instruction: `志望動機/自己PR生成`,
+    header: "1-2 ガクチカ/志望動機/自己PR生成",
     image: Image2,
   },
   {
-    header: `1-3. ガクチカ`,
-    instruction: "志望動機/自己PR生成",
+    header: `1-3 ガクチカ/志望動機/自己PR生成`,
     image: Image3,
   },
   {
