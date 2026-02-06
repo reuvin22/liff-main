@@ -46,8 +46,9 @@ function Generate({ prompt, userId }) {
 
                 if (!window.liff) return
 
-                await window.liff.init({ liffId });
-
+                await window.liff.init({ 
+                        liffId: "2009062034-jI7N73BY"
+                    });
                 await window.liff.ready
 
                 liffRef.current = window.liff
