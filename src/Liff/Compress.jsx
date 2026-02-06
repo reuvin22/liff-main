@@ -10,6 +10,7 @@ function Compress({prompt, userId}) {
     const [generate, setGenerate] = useState("");
     const [isGeneratePage, setIsGeneratePage] = useState(false);
     const [compressData, setCompressData] = useState("")
+    const [error, setError] = useState(false)
     const [copy, setCopy] = useState(false)
     const context = useAdsContext()
     const apiUrl = import.meta.env.VITE_API_URL;
