@@ -10,6 +10,7 @@ function Compress({prompt, userId}) {
     const [generate, setGenerate] = useState("");
     const [isGeneratePage, setIsGeneratePage] = useState(false);
     const [compressData, setCompressData] = useState("")
+    const [error, setError] = useState(false)
     const [copy, setCopy] = useState(false)
     const context = useAdsContext()
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -32,9 +33,7 @@ function Compress({prompt, userId}) {
                       
                 const liff = window.liff;
                 if (liff) {
-                    await liff.init({ 
-                        liffId: "2009062034-jI7N73BY"
-                    });
+                    await liff.init({ liffId });
       
                 const isInLineApp = liff.isInClient();
                     setIsWeb(() => !isInLineApp);

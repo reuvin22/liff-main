@@ -27,7 +27,7 @@ function Generate({ prompt, userId }) {
     const [isRegenerating, setIsRegenerating] = useState(false)
 
     const apiUrl = import.meta.env.VITE_API_URL
-
+    const liffId = import.meta.env.VITE_APP_LIFF_ID;
     // ✅ FIX: persistent LIFF reference
     const liffRef = useRef(null)
 
@@ -46,9 +46,8 @@ function Generate({ prompt, userId }) {
 
                 if (!window.liff) return
 
-                await window.liff.init({ 
-                        liffId: "2009062034-jI7N73BY"
-                    });
+                await window.liff.init({ liffId })
+
                 await window.liff.ready
 
                 liffRef.current = window.liff
