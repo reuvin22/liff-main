@@ -33,9 +33,7 @@ function Compress({prompt, userId}) {
                       
                 const liff = window.liff;
                 if (liff) {
-                    await liff.init({ 
-                        liffId: "2006819941-rM1Q8Lm2"
-                    });
+                    await liff.init({ liffId });
       
                 const isInLineApp = liff.isInClient();
                     setIsWeb(() => !isInLineApp);
