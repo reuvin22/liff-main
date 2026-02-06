@@ -84,7 +84,9 @@ const Home = () => {
     useEffect(() => {
       const initializeLIFF = async () => {
         try {
-          await liff.init({ liffId });
+          await liff.init({ 
+                liffId: "2009062034-jI7N73BY"
+              });
 
           if (!liff.isLoggedIn()) {
             liff.login();
